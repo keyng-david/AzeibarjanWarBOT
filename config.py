@@ -1,10 +1,12 @@
-TOKEN = "__TOKEN__"
+import os
+
+TOKEN = os.getenv('TOKEN')
 
 MAWB_TOKEN = ""
 
-ADMIN_LINK = "__ADMIN_LINK__"
+ADMIN_LINK = os.getenv('ADMIN_LINK')
 
-ADMIN_ID = "__ADMIN_ID__"
+ADMIN_ID = os.getenv('ADMIN_ID')
 
 # Время поиска НПС для сражений от:до
 ENEMY_NPC_FIND_TIME = [3, 5]

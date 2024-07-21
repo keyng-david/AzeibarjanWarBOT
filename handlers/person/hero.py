@@ -7,7 +7,7 @@ from database import DB
 from filters.filter import IsPrivate
 from keyboards import inline
 from keyboards.default import hero_menu
-from AzeibarjanWarBOT.loader import dp, bot
+from loader import dp, bot
 from utils import strings, functions
 from utils.class_getter import get_trick, get_user_info, get_item
 from utils.functions import heal_hp, add_quest_received

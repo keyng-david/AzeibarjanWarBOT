@@ -1,4 +1,4 @@
-from AzeibarjanWarBOT.utils import strings
+from utils import strings
 
 
 class Enemy:

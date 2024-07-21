@@ -1,11 +1,11 @@
 from aiogram import types
 
-from AzeibarjanWarBOT.keyboards.default import npc_menu
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.utils import strings
-from AzeibarjanWarBOT.utils.class_getter import get_user_info
-from AzeibarjanWarBOT.utils.functions import ret_city
-from AzeibarjanWarBOT.filters.filter import IsPrivate, UserInCity
+from keyboards.default import npc_menu
+from loader import dp, bot
+from utils import strings
+from utils.class_getter import get_user_info
+from utils.functions import ret_city
+from filters.filter import IsPrivate, UserInCity
 
 
 @dp.message_handler(UserInCity(), IsPrivate(), text=strings.menuMainButtonsList[1])

@@ -4,7 +4,7 @@ from aiogram.utils.exceptions import Throttled
 from aiogram import types, Dispatcher
 import asyncio
 
-from AzeibarjanWarBOT.utils import strings
+from utils import strings
 
 
 class ThrottlingMiddleware(BaseMiddleware):

@@ -2,16 +2,16 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.utils.callback_data import CallbackData
 
-from AzeibarjanWarBOT import config
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.filters.filter import IsPrivate, IsClanHead, IsClanHeadOrAdmin, UserInClan, UserNotInClan
-from AzeibarjanWarBOT.keyboards import default, inline
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.src.clan import Clan
-from AzeibarjanWarBOT.state.states import CreateClan, ClanSettings
-from AzeibarjanWarBOT.utils import strings
-from AzeibarjanWarBOT.utils.class_getter import get_user_info, get_clan_info, get_resource
-from AzeibarjanWarBOT.utils.functions import ret_city, buy_item
+import config
+from database import DB
+from filters.filter import IsPrivate, IsClanHead, IsClanHeadOrAdmin, UserInClan, UserNotInClan
+from keyboards import default, inline
+from loader import dp, bot
+from src.clan import Clan
+from state.states import CreateClan, ClanSettings
+from utils import strings
+from utils.class_getter import get_user_info, get_clan_info, get_resource
+from utils.functions import ret_city, buy_item
 
 cb_item_tap = CallbackData("potion", "tap")
 cb_buy_item = CallbackData("buy", "res")

@@ -1,9 +1,10 @@
-TOKEN = "TOKEN"
+TOKEN = "__TOKEN__"
+
 MAWB_TOKEN = ""
 
-ADMIN_LINK = "https://t.me/Keyng_Dave"
+ADMIN_LINK = "__ADMIN_LINK__"
 
-ADMIN_ID = [6503512266]
+ADMIN_ID = "__ADMIN_ID__"
 
 # Время поиска НПС для сражений от:до
 ENEMY_NPC_FIND_TIME = [3, 5]

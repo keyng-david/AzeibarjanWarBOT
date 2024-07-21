@@ -1,13 +1,13 @@
 from aiogram import types
 
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.filters.filter import IsPrivate
-from AzeibarjanWarBOT.keyboards import default, inline
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.state import states
-from AzeibarjanWarBOT.state.states import DeleteHero
-from AzeibarjanWarBOT.utils import strings
-from AzeibarjanWarBOT.utils.class_getter import get_user_info, get_resource
+from database import DB
+from filters.filter import IsPrivate
+from keyboards import default, inline
+from loader import dp, bot
+from state import states
+from state.states import DeleteHero
+from utils import strings
+from utils.class_getter import get_user_info, get_resource
 
 
 @dp.message_handler(IsPrivate(), text=[strings.menuMainButtonsList[5], strings.settings_buttons_text[3]])

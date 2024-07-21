@@ -1,6 +1,6 @@
-from AzeibarjanWarBOT.src.dicts import item_haracteristics
-from AzeibarjanWarBOT.src.user import User
-from AzeibarjanWarBOT.utils import strings, functions
+from src.dicts import item_haracteristics
+from src.user import User
+from utils import strings, functions
 
 
 class InventoryItem:

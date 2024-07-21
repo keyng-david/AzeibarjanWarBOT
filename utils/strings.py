@@ -1,5 +1,5 @@
-from AzeibarjanWarBOT import config
-from AzeibarjanWarBOT.src.enemy import Enemy
+import config
+from src.enemy import Enemy
 
 start_NoneRegisterMessage = "🌀 Не так давно отгремели последние залпы орудий и лязганье кованной стали." \
                             "  🏛 <b>Цирта</b> пала. Жители всех соседних земель наконец смогут вздохнуть с облегчением." \

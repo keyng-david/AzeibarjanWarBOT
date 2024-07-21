@@ -1,6 +1,6 @@
-from AzeibarjanWarBOT.src.dicts import item_haracteristics
-from AzeibarjanWarBOT.src.item import InventoryItem
-from AzeibarjanWarBOT.utils import strings
+from src.dicts import item_haracteristics
+from src.item import InventoryItem
+from utils import strings
 
 
 class Trick:

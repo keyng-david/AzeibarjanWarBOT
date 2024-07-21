@@ -1,6 +1,6 @@
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.utils import strings
-from AzeibarjanWarBOT.utils.class_getter import get_resource, get_user_info, get_item
+from database import DB
+from utils import strings
+from utils.class_getter import get_resource, get_user_info, get_item
 
 
 class Craft:

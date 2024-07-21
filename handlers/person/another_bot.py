@@ -1,12 +1,12 @@
 from aiogram import types
 from aiogram.dispatcher.filters import IsReplyFilter
 
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.filters.filter import IsNotPrivate
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.utils import strings, functions
-from AzeibarjanWarBOT.utils.class_getter import get_user_info
-from AzeibarjanWarBOT.utils.strings import hero_item_list
+from database import DB
+from filters.filter import IsNotPrivate
+from loader import dp, bot
+from utils import strings, functions
+from utils.class_getter import get_user_info
+from utils.strings import hero_item_list
 
 
 @dp.message_handler(IsReplyFilter(is_reply=True), IsNotPrivate(), commands="info")

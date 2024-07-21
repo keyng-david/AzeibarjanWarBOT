@@ -1,4 +1,4 @@
-from AzeibarjanWarBOT.utils.strings import *
+from utils.strings import *
 
 
 dealer_resources = {

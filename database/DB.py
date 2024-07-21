@@ -4,7 +4,7 @@ from random import randint
 
 import aiosqlite
 
-from import config
+import config
 from src import dicts
 from src.enemy import Enemy
 from src.potion import Potion

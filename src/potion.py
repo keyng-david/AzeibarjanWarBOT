@@ -1,9 +1,9 @@
 import asyncio
 
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.loader import bot
-from AzeibarjanWarBOT.src.user import User
-from AzeibarjanWarBOT.utils import strings
+from database import DB
+from loader import bot
+from src.user import User
+from utils import strings
 
 
 class Potion:

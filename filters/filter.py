@@ -1,11 +1,11 @@
 from aiogram.dispatcher.filters import BoundFilter
 from aiogram import types
 
-from AzeibarjanWarBOT import config
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.loader import bot
-from AzeibarjanWarBOT.utils import strings
-from AzeibarjanWarBOT.utils.class_getter import get_user_info
+import config
+from database import DB
+from loader import bot
+from utils import strings
+from utils.class_getter import get_user_info
 
 
 class IsPrivate(BoundFilter):

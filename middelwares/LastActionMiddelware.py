@@ -1,7 +1,7 @@
 from aiogram import types
 from aiogram.dispatcher.middlewares import BaseMiddleware
 
-from AzeibarjanWarBOT.database import DB
+from database import DB
 
 
 class TimeLastActionMiddelware(BaseMiddleware):

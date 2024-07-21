@@ -2,11 +2,11 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.callback_data import CallbackData
 from aiogram.utils.deep_linking import get_start_link
 
-from AzeibarjanWarBOT import config
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.src import dicts
-from AzeibarjanWarBOT.utils import strings
-from AzeibarjanWarBOT.utils.class_getter import get_trick, get_user_info, get_item, get_resource, get_quest
+import config
+from database import DB
+from src import dicts
+from utils import strings
+from utils.class_getter import get_trick, get_user_info, get_item, get_resource, get_quest
 
 
 async def start_game():

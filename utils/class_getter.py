@@ -1,16 +1,16 @@
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.src.clan import Clan
-from AzeibarjanWarBOT.src.enemy import Enemy
-from AzeibarjanWarBOT.src.event import Event
-from AzeibarjanWarBOT.src.fight_room import Fight
-from AzeibarjanWarBOT.src.fight_room_u import FightRoomUsers
-from AzeibarjanWarBOT.src.item import InventoryItem
-from AzeibarjanWarBOT.src.locations import Location
-from AzeibarjanWarBOT.src.quests import Quests
-from AzeibarjanWarBOT.src.resource import Resource
-from AzeibarjanWarBOT.src.trade_room import TradeRoom
-from AzeibarjanWarBOT.src.trick import Trick
-from AzeibarjanWarBOT.src.user import User
+from database import DB
+from src.clan import Clan
+from src.enemy import Enemy
+from src.event import Event
+from src.fight_room import Fight
+from src.fight_room_u import FightRoomUsers
+from src.item import InventoryItem
+from src.locations import Location
+from src.quests import Quests
+from src.resource import Resource
+from src.trade_room import TradeRoom
+from src.trick import Trick
+from src.user import User
 
 
 async def get_fight_room(user_id) -> Fight:

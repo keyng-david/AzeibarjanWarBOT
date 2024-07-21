@@ -1,10 +1,10 @@
 from aiogram import types
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
-from AzeibarjanWarBOT import config
-from AzeibarjanWarBOT.src.user import User
-from AzeibarjanWarBOT.utils import strings
-from AzeibarjanWarBOT.utils.class_getter import get_trick, get_fight_room, get_fight_room_u
+import config
+from src.user import User
+from utils import strings
+from utils.class_getter import get_trick, get_fight_room, get_fight_room_u
 
 
 async def buttons_start_choose_course():

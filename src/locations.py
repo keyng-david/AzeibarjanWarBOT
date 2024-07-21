@@ -1,11 +1,11 @@
 from datetime import datetime
 
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.src import dicts
-from AzeibarjanWarBOT.src.clan import Clan
-from AzeibarjanWarBOT.src.event import Event
-from AzeibarjanWarBOT.src.user import User
-from AzeibarjanWarBOT.utils import strings
+from database import DB
+from src import dicts
+from src.clan import Clan
+from src.event import Event
+from src.user import User
+from utils import strings
 
 
 class Location:

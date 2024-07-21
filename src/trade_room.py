@@ -1,8 +1,8 @@
-from AzeibarjanWarBOT.src.item import InventoryItem
-from AzeibarjanWarBOT.src.resource import Resource
-from AzeibarjanWarBOT.src.user import User
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.utils import strings
+from src.item import InventoryItem
+from src.resource import Resource
+from src.user import User
+from database import DB
+from utils import strings
 
 
 class TradeRoom:

@@ -1,10 +1,10 @@
 from aiogram import types
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.filters.filter import IsPrivate
-from AzeibarjanWarBOT.keyboards import inline
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.utils import strings, functions
-from AzeibarjanWarBOT.utils.class_getter import get_quest, get_user_info
+from database import DB
+from filters.filter import IsPrivate
+from keyboards import inline
+from loader import dp, bot
+from utils import strings, functions
+from utils.class_getter import get_quest, get_user_info
 
 
 @dp.callback_query_handler(text="back_to_quests")

@@ -4,13 +4,13 @@ from random import shuffle
 from aiogram import types
 from aiogram.utils.exceptions import MessageNotModified
 
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.keyboards import inline
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.src import dicts
-from AzeibarjanWarBOT.utils import strings, functions
-from AzeibarjanWarBOT.utils.class_getter import get_user_info, get_resource
-from AzeibarjanWarBOT.filters.filter import IsPrivate
+from database import DB
+from keyboards import inline
+from loader import dp, bot
+from src import dicts
+from utils import strings, functions
+from utils.class_getter import get_user_info, get_resource
+from filters.filter import IsPrivate
 
 @dp.message_handler(IsPrivate(), text=strings.nps_baki_list[3])
 @dp.callback_query_handler(text="boxes_back")

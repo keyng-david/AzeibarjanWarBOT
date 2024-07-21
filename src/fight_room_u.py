@@ -1,12 +1,12 @@
 import datetime
 from random import randint
 
-from AzeibarjanWarBOT import config
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.src import dicts
-from AzeibarjanWarBOT.src.trick import Trick
-from AzeibarjanWarBOT.src.user import User
-from AzeibarjanWarBOT.utils import strings
+import config
+from database import DB
+from src import dicts
+from src.trick import Trick
+from src.user import User
+from utils import strings
 
 
 class FightRoomUsers:

@@ -1,11 +1,11 @@
 from aiogram import types
 from aiogram.utils.deep_linking import get_start_link
 
-from AzeibarjanWarBOT.filters.filter import IsPrivate
-from AzeibarjanWarBOT.keyboards import inline
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.utils import strings
-from AzeibarjanWarBOT.utils.class_getter import get_user_info
+from filters.filter import IsPrivate
+from keyboards import inline
+from loader import dp, bot
+from utils import strings
+from utils.class_getter import get_user_info
 
 
 @dp.message_handler(IsPrivate(), text=strings.menu_chield_buttons_text[3])

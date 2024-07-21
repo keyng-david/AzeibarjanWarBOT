@@ -3,14 +3,14 @@ import sqlite3
 from aiogram import types
 from aiogram.utils.callback_data import CallbackData
 
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.filters.filter import IsPrivate
-from AzeibarjanWarBOT.handlers.person.hero import can_use_item
-from AzeibarjanWarBOT.keyboards import default, inline
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.src.user import User
-from AzeibarjanWarBOT.utils import strings
-from AzeibarjanWarBOT.utils.class_getter import get_trick, get_user_info
+from database import DB
+from filters.filter import IsPrivate
+from handlers.person.hero import can_use_item
+from keyboards import default, inline
+from loader import dp, bot
+from src.user import User
+from utils import strings
+from utils.class_getter import get_trick, get_user_info
 
 cb_know_items = CallbackData("trick", "buttons")
 

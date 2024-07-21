@@ -2,15 +2,15 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.utils.callback_data import CallbackData
 
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.filters.filter import IsPrivate
-from AzeibarjanWarBOT.keyboards import default, inline
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.src import dicts
-from AzeibarjanWarBOT.state import states
-from AzeibarjanWarBOT.utils import strings
-from AzeibarjanWarBOT.utils.class_getter import get_user_info, get_trade_room
-from AzeibarjanWarBOT.utils.functions import ret_city
+from database import DB
+from filters.filter import IsPrivate
+from keyboards import default, inline
+from loader import dp, bot
+from src import dicts
+from state import states
+from utils import strings
+from utils.class_getter import get_user_info, get_trade_room
+from utils.functions import ret_city
 
 cb_next = CallbackData("next", "move")
 cb_back = CallbackData("back", "move")

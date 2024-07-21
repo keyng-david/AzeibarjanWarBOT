@@ -1,4 +1,4 @@
-from AzeibarjanWarBOT.utils import strings, functions
+from utils import strings, functions
 
 
 class User:

@@ -3,15 +3,15 @@ import asyncio
 from aiogram import types
 from aiogram.utils.callback_data import CallbackData
 
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.filters.filter import IsPrivate
-from AzeibarjanWarBOT.keyboards import inline
-from AzeibarjanWarBOT.keyboards.default import hero_menu
+from database import DB
+from filters.filter import IsPrivate
+from keyboards import inline
+from keyboards.default import hero_menu
 from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.utils import strings, functions
-from AzeibarjanWarBOT.utils.class_getter import get_trick, get_user_info, get_item
-from AzeibarjanWarBOT.utils.functions import heal_hp, add_quest_received
-from AzeibarjanWarBOT.utils.strings import menuMainButtonsList, hero_buttots_keyb, hero_item_list, \
+from utils import strings, functions
+from utils.class_getter import get_trick, get_user_info, get_item
+from utils.functions import heal_hp, add_quest_received
+from utils.strings import menuMainButtonsList, hero_buttots_keyb, hero_item_list, \
     hero_information_title, use_weapon, item_types, last_page, first_page, you_cant_use, \
     you_successfully_use_it, you_want_to_up_it, item_actions_inventory, trainer_button_list
 

@@ -1,13 +1,13 @@
 from aiogram import types
 
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.filters.filter import IsPrivate, UserInCity
-from AzeibarjanWarBOT.keyboards import inline
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.src import dicts
-from AzeibarjanWarBOT.src.craft import Craft
-from AzeibarjanWarBOT.utils import strings
-from AzeibarjanWarBOT.utils.class_getter import get_user_info, get_item
+from database import DB
+from filters.filter import IsPrivate, UserInCity
+from keyboards import inline
+from loader import dp, bot
+from src import dicts
+from src.craft import Craft
+from utils import strings
+from utils.class_getter import get_user_info, get_item
 
 
 # Реагируем на текст кузнеца

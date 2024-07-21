@@ -1,14 +1,14 @@
 from aiogram import types
 from aiogram.utils.callback_data import CallbackData
 
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.filters.filter import IsPrivate
-from AzeibarjanWarBOT.keyboards import inline
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.src import dicts
-from AzeibarjanWarBOT.utils import strings
-from AzeibarjanWarBOT.utils.class_getter import get_trick, get_user_info
-from AzeibarjanWarBOT.utils.functions import buy_item
+from database import DB
+from filters.filter import IsPrivate
+from keyboards import inline
+from loader import dp, bot
+from src import dicts
+from utils import strings
+from utils.class_getter import get_trick, get_user_info
+from utils.functions import buy_item
 
 cb_item = CallbackData("ael", "get_item")
 cb_buy = CallbackData("ael_b", "buy")

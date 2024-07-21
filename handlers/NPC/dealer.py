@@ -7,7 +7,7 @@ from keyboards import inline
 from loader import dp, bot
 from utils import strings
 from utils.class_getter import get_user_info, get_item, get_resource
-from AzeibarjanWarBOT.utils.functions import buy_item
+from utils.functions import buy_item
 
 item_filter = CallbackData("centur", "get_item")
 filter_buy = CallbackData("cent", "buy_item")

@@ -4,11 +4,11 @@ from random import randint
 
 import aiosqlite
 
-from AzeibarjanWarBOT import config
-from AzeibarjanWarBOT.src import dicts
-from AzeibarjanWarBOT.src.enemy import Enemy
-from AzeibarjanWarBOT.src.potion import Potion
-from AzeibarjanWarBOT.src.user import User
+from import config
+from src import dicts
+from src.enemy import Enemy
+from src.potion import Potion
+from src.user import User
 
 PATH_TO_DB = 'database/azerbaijan_bot.db'
 

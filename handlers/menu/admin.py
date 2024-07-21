@@ -1,13 +1,13 @@
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.state.states import Admin
-from AzeibarjanWarBOT.filters.filter import IsPrivate, IsAdmin
-from AzeibarjanWarBOT.keyboards import default
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.utils import strings
-from AzeibarjanWarBOT.utils.class_getter import get_resource
+from database import DB
+from state.states import Admin
+from filters.filter import IsPrivate, IsAdmin
+from keyboards import default
+from loader import dp, bot
+from utils import strings
+from utils.class_getter import get_resource
 
 
 @dp.message_handler(IsPrivate(), IsAdmin(), text=strings.admin_button)

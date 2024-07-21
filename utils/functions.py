@@ -3,16 +3,16 @@ import asyncio
 import aioschedule
 from aiogram import types
 
-from AzeibarjanWarBOT import config
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.keyboards import default, inline
-from AzeibarjanWarBOT.loader import bot
-from AzeibarjanWarBOT.src import dicts
-from AzeibarjanWarBOT.src.dicts import resources_chield_types
-from AzeibarjanWarBOT.src.resource import Resource
-from AzeibarjanWarBOT.src.user import User
-from AzeibarjanWarBOT.utils import strings
-from AzeibarjanWarBOT.utils.class_getter import get_location, get_trick, get_user_info, get_item, get_resource, get_quest
+import config
+from database import DB
+from keyboards import default, inline
+from loader import bot
+from src import dicts
+from src.dicts import resources_chield_types
+from src.resource import Resource
+from src.user import User
+from utils import strings
+from utils.class_getter import get_location, get_trick, get_user_info, get_item, get_resource, get_quest
 
 
 async def ret_city(user_id):

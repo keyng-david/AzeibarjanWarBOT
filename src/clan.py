@@ -1,7 +1,7 @@
-from AzeibarjanWarBOT import config
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.src.user import User
-from AzeibarjanWarBOT.utils import strings
+import config
+from database import DB
+from src.user import User
+from utils import strings
 
 
 class Clan:

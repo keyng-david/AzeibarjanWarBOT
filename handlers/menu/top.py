@@ -2,12 +2,12 @@ from datetime import datetime, timedelta
 
 from aiogram import types
 
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.filters.filter import IsPrivate
-from AzeibarjanWarBOT.keyboards import default
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.src.clan import Clan
-from AzeibarjanWarBOT.utils import strings
+from database import DB
+from filters.filter import IsPrivate
+from keyboards import default
+from loader import dp, bot
+from src.clan import Clan
+from utils import strings
 
 
 # Рейтинг

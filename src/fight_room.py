@@ -1,12 +1,12 @@
 import random
 from random import randint
 
-from AzeibarjanWarBOT import config
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.src.enemy import Enemy
-from AzeibarjanWarBOT.src.trick import Trick
-from AzeibarjanWarBOT.src.user import User
-from AzeibarjanWarBOT.utils import strings
+import config
+from database import DB
+from src.enemy import Enemy
+from src.trick import Trick
+from src.user import User
+from utils import strings
 
 
 class Fight:

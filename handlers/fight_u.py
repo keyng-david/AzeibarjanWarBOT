@@ -3,15 +3,15 @@ import asyncio
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 
-from AzeibarjanWarBOT import config
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.filters.filter import IsPrivate
-from AzeibarjanWarBOT.keyboards import default
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.src.fight_room_u import FightRoomUsers
-from AzeibarjanWarBOT.state.states import FightState, FightStateUser
-from AzeibarjanWarBOT.utils import strings, functions
-from AzeibarjanWarBOT.utils.class_getter import get_user_info, get_fight_room_u
+import config
+from database import DB
+from filters.filter import IsPrivate
+from keyboards import default
+from loader import dp, bot
+from src.fight_room_u import FightRoomUsers
+from state.states import FightState, FightStateUser
+from utils import strings, functions
+from utils.class_getter import get_user_info, get_fight_room_u
 
 
 @dp.message_handler(IsPrivate(), text=strings.fight_users_buttons[0])

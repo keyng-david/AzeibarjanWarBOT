@@ -5,20 +5,20 @@ import random
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 
-from AzeibarjanWarBOT import config
-from AzeibarjanWarBOT.config import ENEMY_NPC_FIND_TIME
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.filters.filter import IsPrivate
-from AzeibarjanWarBOT.keyboards import default
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.src.enemy import Enemy
-from AzeibarjanWarBOT.src.trick import Trick
-from AzeibarjanWarBOT.src.user import User
-from AzeibarjanWarBOT.state.states import FightState, FightStateUser
-from AzeibarjanWarBOT.utils import strings, functions
-from AzeibarjanWarBOT.utils.class_getter import get_location, get_user_info, get_enemy_list, get_fight_room, get_resource, get_quest, \
+import config
+from config import ENEMY_NPC_FIND_TIME
+from database import DB
+from filters.filter import IsPrivate
+from keyboards import default
+from loader import dp, bot
+from src.enemy import Enemy
+from src.trick import Trick
+from src.user import User
+from state.states import FightState, FightStateUser
+from utils import strings, functions
+from utils.class_getter import get_location, get_user_info, get_enemy_list, get_fight_room, get_resource, get_quest, \
     get_fight_room_u
-from AzeibarjanWarBOT.utils.functions import ret_city
+from utils.functions import ret_city
 
 
 @dp.message_handler(IsPrivate(), text=strings.menuMainButtonsList[8])

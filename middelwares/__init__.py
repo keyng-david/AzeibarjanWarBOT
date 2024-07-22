@@ -1,9 +1,5 @@
 from aiogram import Dispatcher
-
-from .LastActionMiddelware import TimeLastActionMiddelware
-from .ThrottlingMiddleware import ThrottlingMiddleware
-
+from .LastActionMiddelware import TimeLastActionMiddleware
 
 def setup(dp: Dispatcher):
-    dp.middleware.setup(ThrottlingMiddleware())
-    dp.middleware.setup(TimeLastActionMiddelware())
+    dp.update.middleware(TimeLastActionMiddleware())

@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from aiogram.utils.callback_data import CallbackData
-from aiogram.utils.deep_linking import get_start_link
+from aiogram.filters.callback_data import CallbackData
+from aiogram.utils.deep_linking import create_start_link
 
 import config
 from database import DB

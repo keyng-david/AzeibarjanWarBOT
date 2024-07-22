@@ -1,54 +1,30 @@
-from aiogram.dispatcher.handler import CancelHandler, current_handler
-from aiogram.dispatcher.middlewares import BaseMiddleware
-from aiogram.utils.exceptions import Throttled
-from aiogram import types, Dispatcher
-import asyncio
+from aiogram import BaseMiddleware
+from aiogram.types import Message
+from aiogram.exceptions import Throttled
+from aiogram.dispatcher.middlewares import ThrottlingMiddleware
 
-from utils import strings
-
-
-class ThrottlingMiddleware(BaseMiddleware):
-    def __init__(self, limit=0.3, key_prefix="antiflood_"):
+class CustomThrottlingMiddleware(BaseMiddleware):
+    def __init__(self, limit=1):
         self.rate_limit = limit
-        self.prefix = key_prefix
-        super(ThrottlingMiddleware, self).__init__()
+        super(CustomThrottlingMiddleware, self).__init__()
 
-    async def on_process_message(self, message: types.Message, data: dict):
-        handler = current_handler.get()
-        dispatcher = Dispatcher.get_current()
-        if handler:
-            limit = getattr(handler, "throttling_rate_limit", self.rate_limit)
-            key = getattr(handler, "throttling_key", f"{self.prefix}_{handler.__name__}")
-        else:
-            limit = self.rate_limit
-            key = f"{self.prefix}_message"
+    async def __call__(self, handler, event, data):
         try:
-            await dispatcher.throttle(key, rate=limit)
+            await self.on_process_event(event, data)
         except Throttled as t:
-            await self.message_throttled(message, t)
+            await self.event_throttled(event, t)
             raise CancelHandler()
 
-    async def message_throttled(self, message: types.Message, throttled: Throttled):
-        handler = current_handler.get()
-        dispatcher = Dispatcher.get_current()
-        if handler:
-            key = getattr(handler, "throttling_key", f"{self.prefix}_{handler.__name__}")
-        else:
-            key = f"{self.prefix}_message"
+        return await handler(event, data)
+
+    async def on_process_event(self, event, data):
+        dispatcher = data['dispatcher']
+        key = f"{event.from_user.id}:{event.chat.id}"
+        throttling_data = await dispatcher.check_key_throttled(key, self.rate_limit)
+
+        if throttling_data.is_throttled:
+            raise Throttled(key=key, rate=self.rate_limit, user_id=event.from_user.id, chat_id=event.chat.id)
+
+    async def event_throttled(self, event, throttled):
         delta = throttled.rate - throttled.delta
-        if throttled.exceeded_count <= 2:
-            await message.reply(strings.dont_fuld)
-        await asyncio.sleep(delta)
-        thr = await dispatcher.check_key(key)
-        if thr.exceeded_count == throttled.exceeded_count:
-            pass
-
-
-def rate_limit(limit: int, key=None):
-    def decorator(func):
-        setattr(func, 'throttling_rate_limit', limit)
-        if key:
-            setattr(func, 'throttling_key', key)
-        return func
-
-    return decorator
+        await event.reply(f'Too many requests! Try again in {delta:.2f} seconds.')

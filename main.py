@@ -9,6 +9,7 @@ from handlers import dp
 from aiogram.filters import Command
 from aiogram.types import Update, Message
 from utils.functions import clear_quests, schedule
+from handlers.start import start_game_logic  # Import the function here
 
 logging.basicConfig(level=logging.INFO)
 

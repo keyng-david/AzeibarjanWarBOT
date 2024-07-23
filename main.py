@@ -54,7 +54,8 @@ async def main():
                 return
 
         user_last_command_time[user_id] = current_time
-        await message.reply("Welcome! Let's start the game.")
+        # Redirect to game start logic
+    await start_game_logic(message)
 
     dp.startup.register(on_startup)
     dp.message.register(start_handler, Command(commands=['start']))

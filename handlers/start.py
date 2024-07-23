@@ -1,11 +1,11 @@
 import asyncio
-from aiogram import types, Router, Bot
+from aiogram import types, Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-from aiogram.types import FSInputFile
+from aiogram.types import FSInputFile, InlineKeyboardMarkup, InlineKeyboardButton
 
 from database import DB
-from loader import dp, bot  # Ensure bot is imported from loader
+from loader import bot, dp
 from src import dicts
 from state import StartState
 from utils import strings
@@ -36,14 +36,22 @@ async def start_game_logic(message: types.Message):
 
         await DB.user_add(message.from_user.id, message.from_user.username)
         file = FSInputFile('utils/images/start.jpg')
-        await bot.send_photo(message.from_user.id, caption=start_NoneRegisterMessage,
-                             photo=file, reply_markup=await inline.start_game())
+        await bot.send_photo(
+            message.from_user.id,
+            caption=start_NoneRegisterMessage,
+            photo=file,
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Start Game", callback_data="start_game")]])
+        )
     else:
         user_info = await get_user_info(message.from_user.id)
         if user_info.course is None:
             file = FSInputFile('utils/images/start.jpg')
-            await bot.send_photo(message.from_user.id, caption=start_NoneRegisterMessage,
-                                 photo=file, reply_markup=await inline.start_game())
+            await bot.send_photo(
+                message.from_user.id,
+                caption=start_NoneRegisterMessage,
+                photo=file,
+                reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Start Game", callback_data="start_game")]])
+            )
         else:
             await ret_city(message.from_user.id)
 
@@ -55,8 +63,11 @@ async def start(message: types.Message):
 # Callback query handler
 @router.callback_query(lambda call: call.data == "start_game")
 async def start(call: types.CallbackQuery):
-    await bot.send_message(call.from_user.id, strings.start_choose_course_preview,
-                           reply_markup=await default.buttons_start_choose_course())
+    await bot.send_message(
+        call.from_user.id,
+        strings.start_choose_course_preview,
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Choose Course", callback_data="choose_course")]])
+    )
     await StartState.course.set()
 
 @router.callback_query(lambda call: call.data == "start_game_complite")
@@ -70,8 +81,11 @@ async def start_game_state(message: types.Message, state: FSMContext):
     if aviable_name == "not busy":
         await state.clear()
         await DB.set_nickname(message.text, message.from_user.id)
-        await bot.send_message(message.from_user.id, strings.startRegistrationComplite,
-                               reply_markup=await inline.start_compliteReg())
+        await bot.send_message(
+            message.from_user.id,
+            strings.startRegistrationComplite,
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Complete Registration", callback_data="complete_registration")]])
+        )
     elif aviable_name == "not_aviable":
         await bot.send_message(message.from_user.id, strings.startYourNameIsInvalid)
     else:
@@ -84,13 +98,18 @@ async def choose_course(message: types.Message, state: FSMContext):
         await DB.set_course(dicts.course_variants[message.text], message.from_user.id)
         await bot.send_message(message.from_user.id, strings.startHi)
         await state.clear()
-        await bot.send_message(message.from_user.id, strings.startWriteName,
-                               reply_markup=await default.button_start_send_nickname(message) if message.from_user.username is not None else await default.get_fight_res_button(
-                                   strings.choice_name))
+        await bot.send_message(
+            message.from_user.id,
+            strings.startWriteName,
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Send Nickname", callback_data="send_nickname")]])
+        )
         await StartState.name.set()
     except KeyError:
-        await bot.send_message(message.from_user.id, strings.start_choose_course_preview,
-                               reply_markup=await default.buttons_start_choose_course())
+        await bot.send_message(
+            message.from_user.id,
+            strings.start_choose_course_preview,
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Choose Course", callback_data="choose_course")]])
+        )
 
     await asyncio.sleep(300)
     user_info = await get_user_info(message.from_user.id)

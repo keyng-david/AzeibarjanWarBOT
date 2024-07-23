@@ -4,7 +4,7 @@ from random import randint
 import config
 from database import DB
 from src import dicts
-from src.trick import Tric
+from src.trick import Trick
 from utils import strings
 
 

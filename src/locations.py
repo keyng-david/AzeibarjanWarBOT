@@ -16,7 +16,8 @@ class Location:
         self.need_lvl = need_lvl
         self.aviable_locations = aviable_locations
 
-    async def get_text_city(self, user_info: User):
+    async def get_text_city(self: str, user_info: 'User': int) -> str:
+        from src.user import User
         event = await DB.get_event()
         cur_event_title = Event(*event).name if event is not None else strings.not_have_event
 

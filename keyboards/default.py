@@ -3,7 +3,6 @@ from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
 import config
 from utils import strings
-from src.user import User
 from utils.class_getter import get_trick, get_fight_room, get_fight_room_u
 
 
@@ -84,6 +83,9 @@ async def cancel_button():
 
 
 async def fight_act(attack: bool, user_info: User, is_empty=False, is_online=False):
+
+  from src.user import User
+
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
 
     async def get_buttons(keyb, start, end):

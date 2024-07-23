@@ -4,8 +4,8 @@ import os
 import time
 from aiohttp import web
 from aiogram import Bot, Dispatcher, types
-from aiogram.filters import Command
 from aiogram.types import Update, Message
+from aiogram.dispatcher.middlewares.base import BaseMiddleware
 from utils.functions import clear_quests, schedule
 
 logging.basicConfig(level=logging.INFO)

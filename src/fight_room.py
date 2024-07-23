@@ -55,6 +55,7 @@ class Fight:
             return text_move
 
     async def __get_text_move_npc(self, blocked_user: bool):
+        from src.user import User
         # Получим get_text_blocked
         text_move = await self.__get_text_blocked_npc(blocked_user)
         # Если get_text_blocked выдал False (действие не было заблокировано)

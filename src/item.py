@@ -62,18 +62,18 @@ class InventoryItem:
 
 
     @staticmethod
-    async def get_aviable_value(value, user_info: User, lvl):
-       from src.user import User
-        if value == "need_lvl":
-            return " 🔻" if user_info.lvl < lvl else ""
-        elif value == "need_power":
-            return " 🔻" if user_info.power < lvl else ""
-        elif value == "need_force":
-            return " 🔻" if user_info.force < lvl else ""
-        elif value == "need_intuition":
-            return " 🔻" if user_info.intuition < lvl else ""
-        elif value == "need_dexterity":
-            return " 🔻" if user_info.dexterity < lvl else ""
+async def get_aviable_value(value, user_info: User, lvl):
+    from src.user import User
+    if value == "need_lvl":
+        return " 🔻" if user_info.lvl < lvl else ""
+    elif value == "need_power":
+        return " 🔻" if user_info.power < lvl else ""
+    elif value == "need_force":
+        return " 🔻" if user_info.force < lvl else ""
+    elif value == "need_intuition":
+        return " 🔻" if user_info.intuition < lvl else ""
+    elif value == "need_dexterity":
+        return " 🔻" if user_info.dexterity < lvl else ""
 
     @property
     def get_item_bonuses(self):

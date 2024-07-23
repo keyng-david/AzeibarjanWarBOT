@@ -1,7 +1,8 @@
 import asyncio
 from aiogram import Bot, Router, types
 from aiogram.fsm.context import FSMContext
-from aiogram.filters import CommandStart, Text
+from aiogram.filters import CommandStart
+from aiogram.filters.text import Text
 from database import DB
 from loader import bot
 from src import dicts

@@ -6,6 +6,7 @@ from loader import bot, dp
 from src import dicts
 from state import states
 from utils import strings
+from aiogram.fsm.context import FSMContext
 from utils.class_getter import get_user_info
 from utils.strings import start_NoneRegisterMessage
 from utils.functions import ret_city, get_name_availability

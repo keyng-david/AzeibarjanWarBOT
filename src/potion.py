@@ -21,7 +21,7 @@ class Potion:
             "bonus_gold": up_gold_proc
         }
 
-    async def use_potion(self: user_info: 'User', potion_name) -> str:
+    async def use_potion(self, user_info: 'User', potion_name) -> str:
         from src.user import User
 
         async def use_effects(operand):

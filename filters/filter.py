@@ -1,4 +1,4 @@
-from aiogram.filters import BoundFilter
+from aiogram.filters import BaseFilter
 from aiogram import types
 
 import config

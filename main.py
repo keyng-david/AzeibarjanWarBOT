@@ -26,11 +26,9 @@ async def on_startup(dispatcher: Dispatcher):
 
 async def handle_webhook(request):
     try:
-        data = await request.json()
-        update = Update(**data)
-        Bot.set_current(dp.bot)
-        Dispatcher.set_current(dp)
-        await dp.update.process_update(update)  # Correct method to process updates
+        body = await request.text()
+        update = Update.parse_raw(body)
+        await dp.feed_update(bot, update)
         return web.Response(status=200)
     except Exception as e:
         logging.error(f"Error handling webhook: {e}")
@@ -64,7 +62,7 @@ async def main():
     app = web.Application()
     app.router.add_post(f'/{TOKEN}', handle_webhook)
     port = int(os.getenv("PORT", 5000))
-    
+
     # This part is adjusted to use the existing event loop
     runner = web.AppRunner(app)
     await runner.setup()

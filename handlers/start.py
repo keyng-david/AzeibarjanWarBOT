@@ -1,13 +1,13 @@
 import asyncio
 from aiogram import types, Router, Bot
 from aiogram.filters import Command
-from aiogram.fsm.context import FSMContext  # Import FSMContext for aiogram 3.x
+from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile
 
 from database import DB
-from loader import dp
+from loader import dp, bot  # Ensure bot is imported from loader
 from src import dicts
-from state import StartState  # Ensure this import points to the correct module
+from state import StartState
 from utils import strings
 from utils.class_getter import get_user_info
 from utils.strings import start_NoneRegisterMessage

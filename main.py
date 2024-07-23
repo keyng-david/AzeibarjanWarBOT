@@ -19,6 +19,11 @@ async def on_startup(dispatcher: Dispatcher):
     asyncio.create_task(schedule())
     asyncio.create_task(clear_quests(2 * 60 * 60))
     middelwares.setup(dispatcher)
+    
+
+    # Set webhook
+    webhook_url = f"https://{os.getenv('HEROKU_APP_NAME')}.herokuapp.com/{os.getenv('TOKEN')}"
+    await bot.set_webhook(webhook_url)
 
 async def main():
     from config import TOKEN  # Make sure the BOT_TOKEN is correctly imported

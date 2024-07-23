@@ -5,6 +5,7 @@ import time
 from aiohttp import web
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
+from handlers import dp
 from aiogram.filters import Command
 from aiogram.types import Update, Message
 from utils.functions import clear_quests, schedule
@@ -35,7 +36,6 @@ async def handle_webhook(request):
 
 async def main():
     from config import TOKEN  # Make sure the BOT_TOKEN is correctly imported
-    from handlers import dp  # Import the handlers
 
     bot = Bot(token=TOKEN)
     storage = MemoryStorage()

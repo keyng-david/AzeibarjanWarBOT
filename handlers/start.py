@@ -2,7 +2,7 @@ import asyncio
 from aiogram import types, Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext  # Import FSMContext for aiogram 3.x
-from aiogram.types import InputFile
+from aiogram.types import File
 
 from database import DB
 from loader import bot, dp

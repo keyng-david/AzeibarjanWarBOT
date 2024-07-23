@@ -1,13 +1,13 @@
 import asyncio
-from aiogram import Bot, Router, types
+from aiogram import Bot, Dispatcher, Router, types
+from aiogram.filters import Command, Text
 from aiogram.fsm.context import FSMContext
-from aiogram.filters import CommandStart
-from aiogram.filters.text import Text
+from aiogram.fsm.state import StatesGroup, State
+from aiogram.utils.keyboard import InlineKeyboardBuilder
 from database import DB
 from loader import bot
 from src import dicts
 from state import states
-from state.states import StartState
 from utils import strings
 from utils.class_getter import get_user_info
 from utils.strings import start_NoneRegisterMessage
@@ -21,10 +21,10 @@ router = Router()
 # Add a function to encapsulate the start game logic
 async def start_game_logic(message: types.Message):
     if not await DB.user_check(message.from_user.id):
-        args = message.text.split()
-        if len(args) > 1:
+        args = message.get_args()
+        if args:
             try:
-                main_referal_id = int(args[1])
+                main_referal_id = int(args)
                 if await DB.check_referal(message.from_user.id, main_referal_id):
                     await DB.add_refelal(main_referal_id, message.from_user.id)
                     user_info = await get_user_info(main_referal_id)
@@ -47,27 +47,27 @@ async def start_game_logic(message: types.Message):
             await ret_city(message.from_user.id)
 
 # Message handler
-@router.message(IsPrivate(), CommandStart())
+@router.message(IsPrivate(), Command("start"))
 async def start(message: types.Message):
     await start_game_logic(message)
 
 # Callback query handler
-@router.callback_query(Text(equals="start_game"))
+@router.callback_query(Text("start_game"))
 async def start(call: types.CallbackQuery):
     await bot.send_message(call.from_user.id, strings.start_choose_course_preview,
                            reply_markup=await default.buttons_start_choose_course())
-    await StartState.course.set()
+    await states.StartState.course.set()
 
-@router.callback_query(Text(equals="start_game_complite"))
+@router.callback_query(Text("start_game_complite"))
 async def start_complite(call: types.CallbackQuery):
     await ret_city(call.from_user.id)
 
 # Message handler with state
-@router.message(states.StartState.name)
+@router.message(state=states.StartState.name)
 async def start_game_state(message: types.Message, state: FSMContext):
     aviable_name = await get_name_availability(message.text)
     if aviable_name == "not busy":
-        await state.finish()
+        await state.clear()
         await DB.set_nickname(message.text, message.from_user.id)
         await bot.send_message(message.from_user.id, strings.startRegistrationComplite,
                                reply_markup=await inline.start_compliteReg())
@@ -77,12 +77,12 @@ async def start_game_state(message: types.Message, state: FSMContext):
         await bot.send_message(message.from_user.id, strings.startYourNameIsBusy)
 
 # Message handler with state for choosing course
-@router.message(states.StartState.course)
+@router.message(state=states.StartState.course)
 async def choose_course(message: types.Message, state: FSMContext):
     try:
         await DB.set_course(dicts.course_variants[message.text], message.from_user.id)
         await bot.send_message(message.from_user.id, strings.startHi)
-        await state.finish()
+        await state.clear()
         await bot.send_message(message.from_user.id, strings.startWriteName,
                                reply_markup=await default.button_start_send_nickname(message) if message.from_user.username is not None else await default.get_fight_res_button(
                                    strings.choice_name))
@@ -97,4 +97,4 @@ async def choose_course(message: types.Message, state: FSMContext):
         await bot.send_message(message.from_user.id, strings.startWriteNameIfWaiting)
 
 # Register the router
-bot.include_router(router)
+dp.include_router(router)

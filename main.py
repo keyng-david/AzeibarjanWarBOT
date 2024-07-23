@@ -9,7 +9,6 @@ from aiogram.filters import Command
 from aiogram.types import Update, Message
 from handlers.start import start_game_logic  # Import the function here
 from utils.functions import clear_quests, schedule
-from loader import dp, bot
 
 logging.basicConfig(level=logging.INFO)
 
@@ -54,7 +53,7 @@ async def handle_webhook(request, bot, dp):
 async def main():
     from config import TOKEN  # Make sure the BOT_TOKEN is correctly imported
 
-    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    bot = Bot(token=TOKEN)
     storage = MemoryStorage()
     dp = Dispatcher(storage=storage)
 

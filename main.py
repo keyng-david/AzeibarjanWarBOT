@@ -28,7 +28,8 @@ async def handle_webhook(request):
     try:
         data = await request.json()
         update = Update(**data)
-        await dp.process_update(update)  # Correct method to process updates
+        Bot.set_current(dp.bot)
+        await dp.bot.handle_update(update)
         return web.Response(status=200)
     except Exception as e:
         logging.error(f"Error handling webhook: {e}")

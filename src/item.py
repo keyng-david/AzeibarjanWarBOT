@@ -58,7 +58,7 @@ class InventoryItem:
         return item_title + item_type + weapon + quality + rarity + item_bonusess + item_bstr + "\n" + (cost if not without_cost else "")
 
     @staticmethod
-    async def get_aviable_value(value, user_info: User, lvl):
+    async def get_aviable_value(value: str, user_info: 'User', lvl: int) -> str:
         from src.user import User
         if value == "need_lvl":
             return " 🔻" if user_info.lvl < lvl else ""
@@ -70,6 +70,7 @@ class InventoryItem:
             return " 🔻" if user_info.intuition < lvl else ""
         elif value == "need_dexterity":
             return " 🔻" if user_info.dexterity < lvl else ""
+        return ""
 
     @property
     def get_item_bonuses(self):

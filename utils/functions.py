@@ -117,7 +117,8 @@ async def get_name_availability(name):
     return "busy" if is_name_busy else "not busy"
 
 
-async def increase_player_level(user_info: User, experience_points):
+async def increase_player_level(user_info: 'User', experience_points) -> str:
+    from src.user import User
     current_level = user_info.lvl
     current_expiriance = user_info.current_xp
     user_id = user_info.id

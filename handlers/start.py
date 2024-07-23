@@ -24,7 +24,7 @@ async def start_game_logic(message: types.Message):
         args = message.text.split(maxsplit=1)[1:]
         if args:
             try:
-                main_referal_id = int(args)
+                main_referal_id = int(args[0])
                 if await DB.check_referal(message.from_user.id, main_referal_id):
                     await DB.add_refelal(main_referal_id, message.from_user.id)
                     user_info = await get_user_info(main_referal_id)

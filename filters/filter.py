@@ -30,7 +30,7 @@ class IsClanHead(BoundFilter):
             await bot.send_message(message.from_user.id, strings.not_have_acces_head)
 
 
-class IsClanHeadOrAdmin(BoundFilter):
+class IsClanHeadOrAdmin(BaseFilter):
     async def check(self, message: types.Message):
         user_clan_info = await DB.get_clan_user(message.from_user.id)
         if user_clan_info is not None:
@@ -40,7 +40,7 @@ class IsClanHeadOrAdmin(BoundFilter):
             await bot.send_message(message.from_user.id, strings.not_have_acces)
 
 
-class UserInClan(BoundFilter):
+class UserInClan(BaseFilter):
     async def check(self, message: types.Message):
         user_clan_info = await DB.get_clan_user(message.from_user.id)
         if user_clan_info is None:
@@ -49,7 +49,7 @@ class UserInClan(BoundFilter):
         return True
 
 
-class UserNotInClan(BoundFilter):
+class UserNotInClan(BaseFilter):
     async def check(self, message: types.Message):
         user_clan_info = await DB.get_clan_user(message.from_user.id)
         if user_clan_info is not None:
@@ -59,7 +59,7 @@ class UserNotInClan(BoundFilter):
 
 
 
-class UserInCity(BoundFilter):
+class UserInCity(BaseFilter):
     async def check(self, message: types.Message):
         user_info = await get_user_info(message.from_user.id)
         return user_info.city in strings.city_list[:-1]

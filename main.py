@@ -62,7 +62,15 @@ async def main():
     app = web.Application()
     app.router.add_post(f'/{TOKEN}', handle_webhook)
     port = int(os.getenv("PORT", 5000))
-    web.run_app(app, port=port)
+    
+    # This part is adjusted to use the existing event loop
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, port=port)
+    await site.start()
+
+    print(f'Server started at http://0.0.0.0:{port}')
+    await asyncio.Event().wait()  # Keep the server running
 
 if __name__ == '__main__':
     asyncio.run(main())

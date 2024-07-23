@@ -1,7 +1,7 @@
 import asyncio
 
 from aiogram import types
-from aiogram.dispatcher import FSMContext
+from aiogram.fsm.context import FSMContext  # Import FSMContext for aiogram 3.x
 
 import config
 from database import DB

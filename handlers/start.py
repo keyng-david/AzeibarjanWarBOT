@@ -4,17 +4,17 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import CommandStart
 
-from AzeibarjanWarBOT.database import DB
-from AzeibarjanWarBOT.loader import dp, bot
-from AzeibarjanWarBOT.src import dicts
-from AzeibarjanWarBOT.state import states
-from AzeibarjanWarBOT.state.states import StartState
-from AzeibarjanWarBOT.utils import strings
-from AzeibarjanWarBOT.utils.class_getter import get_user_info
-from AzeibarjanWarBOT.utils.strings import start_NoneRegisterMessage
-from AzeibarjanWarBOT.utils.functions import ret_city, get_name_availability
-from AzeibarjanWarBOT.keyboards import default, inline
-from AzeibarjanWarBOT.filters.filter import IsPrivate
+from database import DB
+from loader import dp, bot
+from src import dicts
+from state import states
+from state.states import StartState
+from utils import strings
+from utils.class_getter import get_user_info
+from utils.strings import start_NoneRegisterMessage
+from utils.functions import ret_city, get_name_availability
+from keyboards import default, inline
+from filters.filter import IsPrivate
 
 
 # Команда старт

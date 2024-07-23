@@ -1,11 +1,8 @@
 import asyncio
-from aiogram import Bot, Dispatcher, Router, types
-from aiogram.filters import Command, TextFilter
-from aiogram.fsm.context import FSMContext
-from aiogram.fsm.state import StatesGroup, State
-from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram import types, Router
+from aiogram.filters import Command
 from database import DB
-from loader import bot
+from loader import bot, dp
 from src import dicts
 from state import states
 from utils import strings
@@ -52,13 +49,13 @@ async def start(message: types.Message):
     await start_game_logic(message)
 
 # Callback query handler
-@router.callback_query(Text("start_game"))
+@router.callback_query(lambda call: call.data == "start_game")
 async def start(call: types.CallbackQuery):
     await bot.send_message(call.from_user.id, strings.start_choose_course_preview,
                            reply_markup=await default.buttons_start_choose_course())
     await states.StartState.course.set()
 
-@router.callback_query(Text("start_game_complite"))
+@router.callback_query(lambda call: call.data == "start_game_complite")
 async def start_complite(call: types.CallbackQuery):
     await ret_city(call.from_user.id)
 

@@ -1,4 +1,4 @@
-from aiogram.dispatcher.filters import BoundFilter
+from aiogram.filters import BoundFilter
 from aiogram import types
 
 import config

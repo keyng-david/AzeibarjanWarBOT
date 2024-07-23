@@ -1,7 +1,7 @@
 import asyncio
 from aiogram import types
 from aiogram.fsm.context import FSMContext
-from aiogram.dispatcher.filters import CommandStart
+from aiogram.filters import CommandStart
 from database import DB
 from loader import dp, bot
 from src import dicts

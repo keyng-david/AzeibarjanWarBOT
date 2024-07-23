@@ -58,7 +58,8 @@ async def main():
     dp = Dispatcher(storage=storage)
 
     # Register the class-based start handler
-    dp.message.register(StartHandler(), Command(commands=['start']))
+    start_handler = StartHandler()
+    dp.message.register(start_handler.__call__, Command(commands=['start']))
 
     dp.startup.register(on_startup)
 

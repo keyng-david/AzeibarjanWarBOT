@@ -24,7 +24,7 @@ async def on_startup(dispatcher: Dispatcher):
     asyncio.create_task(clear_quests(2 * 60 * 60))
     middelwares.setup(dispatcher)
 
-async def handle_webhook(request):
+async def handle_webhook(request, bot, dp):
     try:
         body = await request.text()
         update = Update.parse_raw(body)
@@ -60,7 +60,10 @@ async def main():
     dp.message.register(start_handler, Command(commands=['start']))
 
     app = web.Application()
-    app.router.add_post(f'/{TOKEN}', handle_webhook)
+
+    # Pass bot and dp to the handle_webhook function
+    app.router.add_post(f'/{TOKEN}', lambda request: handle_webhook(request, bot, dp))
+
     port = int(os.getenv("PORT", 5000))
 
     # This part is adjusted to use the existing event loop

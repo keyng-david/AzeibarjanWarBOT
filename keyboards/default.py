@@ -32,7 +32,6 @@ async def buttons_menu(user_id, city=True, coliseum=False):
     else:
         b2 = KeyboardButton(strings.fight_users_buttons[0])
 
-
     b3 = KeyboardButton(strings.menuMainButtonsList[2])
     b4 = KeyboardButton(strings.menuMainButtonsList[3])
     b5 = KeyboardButton(strings.menuMainButtonsList[4])
@@ -65,6 +64,7 @@ async def npc_menu(city: str):
         keyboard.insert(button)
     return keyboard.add(strings.nps_baki_list[-1])
 
+
 async def hero_tricks_menu():
     b_tricks = ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
     active_tricks = KeyboardButton(strings.trainer_button_list[1])
@@ -74,17 +74,13 @@ async def hero_tricks_menu():
     return b_tricks.add(active_tricks, know_tricks).add(*change_tricks).add(back)
 
 
-
-
 async def cancel_button():
     return ReplyKeyboardMarkup(resize_keyboard=True, row_width=1).add(
         strings.cancel_transition)
 
 
-
 async def fight_act(attack: bool, user_info: User, is_empty=False, is_online=False):
-
-  from src.user import User
+    from src.user import User  # Moved import statement here as discussed
 
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
 
@@ -143,8 +139,6 @@ async def yes_or_no_buttons():
     return keyboard
 
 
-
-
 async def top_buttons():
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     for i in strings.top_titles[:-1]:
@@ -165,6 +159,7 @@ async def menu_chield_buttons():
         keyboard.insert(i)
     return keyboard
 
+
 async def settings_buttons():
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     arr = strings.settings_buttons_text
@@ -172,6 +167,7 @@ async def settings_buttons():
     keyboard.add(arr[1], arr[2])
     keyboard.add(arr[3])
     return keyboard
+
 
 async def help_message_buttons():
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
@@ -234,5 +230,3 @@ async def change_event_menu():
     for button in strings.change_event_buttons:
         keyboard.insert(button)
     return keyboard
-
-

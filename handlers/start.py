@@ -36,13 +36,13 @@ async def start_game_logic(message: types.Message):
 
         await DB.user_add(message.from_user.id, message.from_user.username)
         await bot.send_photo(message.from_user.id, caption=start_NoneRegisterMessage,
-                             photo=InputFile('utils/images/start.jpg'),
+                             photo=File('utils/images/start.jpg'),
                              reply_markup=await inline.start_game())
     else:
         user_info = await get_user_info(message.from_user.id)
         if user_info.course is None:
             await bot.send_photo(message.from_user.id, caption=start_NoneRegisterMessage,
-                                 photo=InputFile("utils/images/start.jpg"), reply_markup=await inline.start_game())
+                                 photo=File("utils/images/start.jpg"), reply_markup=await inline.start_game())
         else:
             await ret_city(message.from_user.id)
 

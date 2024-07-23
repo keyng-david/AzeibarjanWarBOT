@@ -3,7 +3,9 @@ import logging
 import os
 import time
 from aiohttp import web
-from aiogram import Bot, Dispatcher, types
+from aiogram import Bot, Dispatcher
+from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.filters import Command
 from aiogram.types import Update, Message
 from utils.functions import clear_quests, schedule
 
@@ -25,7 +27,7 @@ async def handle_webhook(request):
     try:
         data = await request.json()
         update = Update(**data)
-        await dp.process_update(update)
+        await dp.update.update_queue.put(update)
         return web.Response(status=200)
     except Exception as e:
         logging.error(f"Error handling webhook: {e}")
@@ -36,7 +38,8 @@ async def main():
     from handlers import dp  # Import the handlers
 
     bot = Bot(token=TOKEN)
-    dp = Dispatcher(bot)
+    storage = MemoryStorage()
+    dp = Dispatcher(bot, storage=storage)
 
     @dp.message(Command(commands=['start']))
     async def start_handler(message: Message):

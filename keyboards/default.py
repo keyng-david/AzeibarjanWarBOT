@@ -79,8 +79,8 @@ async def cancel_button():
         strings.cancel_transition)
 
 
-async def fight_act(attack: bool, user_info: User, is_empty=False, is_online=False):
-    from src.user import User  # Moved import statement here as discussed
+async def fight_act(attack: bool, user_info: 'User', is_empty=False, is_online=False) -> str:
+    from src.user import User
 
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
 

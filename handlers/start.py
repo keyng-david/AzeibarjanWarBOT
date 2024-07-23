@@ -1,6 +1,6 @@
 import asyncio
 from aiogram import Bot, Dispatcher, Router, types
-from aiogram.filters import Command, Text
+from aiogram.filters import Command, TextFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.utils.keyboard import InlineKeyboardBuilder

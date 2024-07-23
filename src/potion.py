@@ -2,7 +2,6 @@ import asyncio
 
 from database import DB
 from loader import bot
-from src.user import User
 from utils import strings
 
 
@@ -22,7 +21,7 @@ class Potion:
             "bonus_gold": up_gold_proc
         }
 
-    async def use_potion(self: str, user_info: 'User', potion_name: int) -> str:
+    async def use_potion(self: user_info: 'User', potion_name) -> str:
         from src.user import User
 
         async def use_effects(operand):

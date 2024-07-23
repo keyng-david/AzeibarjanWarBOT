@@ -7,9 +7,9 @@ from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.filters import Command
 from aiogram.types import Update, Message
-from handlers.start import start_game_logic
+from handlers.start import start_game_logic  # Import the function here
 from utils.functions import clear_quests, schedule
-from loader import bot, dp
+from loader import dp, bot
 
 logging.basicConfig(level=logging.INFO)
 
@@ -41,7 +41,7 @@ async def on_startup(dispatcher: Dispatcher):
     asyncio.create_task(clear_quests(2 * 60 * 60))
     middlewares.setup(dispatcher)
 
-async def handle_webhook(request):
+async def handle_webhook(request, bot, dp):
     try:
         body = await request.text()
         update = Update.parse_raw(body)
@@ -54,12 +54,19 @@ async def handle_webhook(request):
 async def main():
     from config import TOKEN  # Make sure the BOT_TOKEN is correctly imported
 
+    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    storage = MemoryStorage()
+    dp = Dispatcher(storage=storage)
+
+    # Register the class-based start handler
+    dp.message.register(StartHandler(), Command(commands=['start']))
+
     dp.startup.register(on_startup)
 
     app = web.Application()
 
     # Pass bot and dp to the handle_webhook function
-    app.router.add_post(f'/{TOKEN}', handle_webhook)
+    app.router.add_post(f'/{TOKEN}', lambda request: handle_webhook(request, bot, dp))
 
     port = int(os.getenv("PORT", 5000))
 

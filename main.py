@@ -1,10 +1,11 @@
 import asyncio
 import logging
 import os
+import time
 from aiohttp import web
 from aiogram import Bot, Dispatcher, types
-from aiogram.types import Update
-from aiogram.dispatcher.middlewares.base import BaseMiddleware
+from aiogram.filters import Command
+from aiogram.types import Update, Message
 from utils.functions import clear_quests, schedule
 
 logging.basicConfig(level=logging.INFO)
@@ -22,10 +23,14 @@ async def on_startup(dispatcher: Dispatcher):
     middelwares.setup(dispatcher)
 
 async def handle_webhook(request):
-    data = await request.json()
-    update = Update(**data)
-    await dp.process_update(update)
-    return web.Response(status=200)
+    try:
+        data = await request.json()
+        update = Update(**data)
+        await dp.process_update(update)
+        return web.Response(status=200)
+    except Exception as e:
+        logging.error(f"Error handling webhook: {e}")
+        return web.Response(status=500)
 
 async def main():
     from config import TOKEN  # Make sure the BOT_TOKEN is correctly imported
@@ -35,7 +40,7 @@ async def main():
     dp = Dispatcher(bot)
 
     @dp.message(Command(commands=['start']))
-    async def start_handler(message: types.Message):
+    async def start_handler(message: Message):
         user_id = message.from_user.id
         current_time = time.time()
         throttle_rate = 2  # 2 seconds throttle rate

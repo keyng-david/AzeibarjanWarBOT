@@ -39,7 +39,7 @@ async def main():
 
     bot = Bot(token=TOKEN)
     storage = MemoryStorage()
-    dp = Dispatcher(bot, storage=storage)
+    dp = Dispatcher(storage=storage)
 
     @dp.message(Command(commands=['start']))
     async def start_handler(message: Message):
@@ -56,7 +56,8 @@ async def main():
         user_last_command_time[user_id] = current_time
         await message.reply("Welcome! Let's start the game.")
 
-    await on_startup(dp)
+    dp.startup.register(on_startup)
+    dp.message.register(start_handler, Command(commands=['start']))
 
     app = web.Application()
     app.router.add_post(f'/{TOKEN}', handle_webhook)

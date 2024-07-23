@@ -8,19 +8,19 @@ from utils import strings
 from utils.class_getter import get_user_info
 
 
-class IsPrivate(BoundFilter):
+class IsPrivate(BaseFilter):
     async def check(self, m: types.Message):
         return m.chat.type == types.ChatType.PRIVATE
 
-class IsNotPrivate(BoundFilter):
+class IsNotPrivate(BaseFilter):
     async def check(self, m: types.Message):
         return m.chat.type != types.ChatType.PRIVATE
 
-class IsAdmin(BoundFilter):
+class IsAdmin(BaseFilter):
     async def check(self, m: types.Message):
         return m.from_user.id in config.ADMIN_ID
 
-class IsClanHead(BoundFilter):
+class IsClanHead(BaseFilter):
     async def check(self, message: types.Message):
         user_clan_info = await DB.get_clan_user(message.from_user.id)
         if user_clan_info is not None:

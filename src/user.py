@@ -1,4 +1,4 @@
-from utils import strings, functions
+from utils import functions
 
 
 class User:

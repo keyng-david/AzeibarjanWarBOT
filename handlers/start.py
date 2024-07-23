@@ -7,7 +7,7 @@ from aiogram.types import InputFile
 from database import DB
 from loader import bot, dp
 from src import dicts
-from state import StartState
+from state import StartState  # Ensure this import points to the correct module
 from utils import strings
 from utils.class_getter import get_user_info
 from utils.strings import start_NoneRegisterMessage
@@ -36,13 +36,13 @@ async def start_game_logic(message: types.Message):
 
         await DB.user_add(message.from_user.id, message.from_user.username)
         await bot.send_photo(message.from_user.id, caption=start_NoneRegisterMessage,
-                             photo=types.InputFile('utils/images/start.jpg'),
+                             photo=InputFile('utils/images/start.jpg'),
                              reply_markup=await inline.start_game())
     else:
         user_info = await get_user_info(message.from_user.id)
         if user_info.course is None:
             await bot.send_photo(message.from_user.id, caption=start_NoneRegisterMessage,
-                                 photo=types.InputFile("utils/images/start.jpg"), reply_markup=await inline.start_game())
+                                 photo=InputFile("utils/images/start.jpg"), reply_markup=await inline.start_game())
         else:
             await ret_city(message.from_user.id)
 

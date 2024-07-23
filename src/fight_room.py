@@ -5,7 +5,6 @@ import config
 from database import DB
 from src.enemy import Enemy
 from src.trick import Trick
-from src.user import User
 from utils import strings
 
 

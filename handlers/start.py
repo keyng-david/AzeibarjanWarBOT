@@ -1,12 +1,14 @@
 import asyncio
 from aiogram import types, Router
 from aiogram.filters import Command
+from aiogram.fsm.context import FSMContext  # Import FSMContext for aiogram 3.x
+from aiogram.types import InputFile
+
 from database import DB
 from loader import bot, dp
 from src import dicts
-from state import states
+from state import StartState
 from utils import strings
-from aiogram.fsm.context import FSMContext
 from utils.class_getter import get_user_info
 from utils.strings import start_NoneRegisterMessage
 from utils.functions import ret_city, get_name_availability
@@ -54,14 +56,14 @@ async def start(message: types.Message):
 async def start(call: types.CallbackQuery):
     await bot.send_message(call.from_user.id, strings.start_choose_course_preview,
                            reply_markup=await default.buttons_start_choose_course())
-    await states.StartState.course.set()
+    await StartState.course.set()
 
 @router.callback_query(lambda call: call.data == "start_game_complite")
 async def start_complite(call: types.CallbackQuery):
     await ret_city(call.from_user.id)
 
 # Message handler with state
-@router.message(state=states.StartState.name)
+@router.message(StartState.name)
 async def start_game_state(message: types.Message, state: FSMContext):
     aviable_name = await get_name_availability(message.text)
     if aviable_name == "not busy":
@@ -75,7 +77,7 @@ async def start_game_state(message: types.Message, state: FSMContext):
         await bot.send_message(message.from_user.id, strings.startYourNameIsBusy)
 
 # Message handler with state for choosing course
-@router.message(state=states.StartState.course)
+@router.message(StartState.course)
 async def choose_course(message: types.Message, state: FSMContext):
     try:
         await DB.set_course(dicts.course_variants[message.text], message.from_user.id)
@@ -84,7 +86,7 @@ async def choose_course(message: types.Message, state: FSMContext):
         await bot.send_message(message.from_user.id, strings.startWriteName,
                                reply_markup=await default.button_start_send_nickname(message) if message.from_user.username is not None else await default.get_fight_res_button(
                                    strings.choice_name))
-        await states.StartState.name.set()
+        await StartState.name.set()
     except KeyError:
         await bot.send_message(message.from_user.id, strings.start_choose_course_preview,
                                reply_markup=await default.buttons_start_choose_course())

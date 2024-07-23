@@ -1,10 +1,11 @@
 import asyncio
 import logging
-import time
-from utils.functions import clear_quests, schedule
+import os
+from aiohttp import web
 from aiogram import Bot, Dispatcher, types
-from aiogram.filters import Command
-from aiogram.types import Message
+from aiogram.types import Update
+from aiogram.dispatcher.middlewares.base import BaseMiddleware
+from utils.functions import clear_quests, schedule
 
 logging.basicConfig(level=logging.INFO)
 
@@ -19,21 +20,22 @@ async def on_startup(dispatcher: Dispatcher):
     asyncio.create_task(schedule())
     asyncio.create_task(clear_quests(2 * 60 * 60))
     middelwares.setup(dispatcher)
-    
 
-    # Set webhook
-    webhook_url = f"https://{os.getenv('HEROKU_APP_NAME')}.herokuapp.com/{os.getenv('TOKEN')}"
-    await bot.set_webhook(webhook_url)
+async def handle_webhook(request):
+    data = await request.json()
+    update = Update(**data)
+    await dp.process_update(update)
+    return web.Response(status=200)
 
 async def main():
     from config import TOKEN  # Make sure the BOT_TOKEN is correctly imported
     from handlers import dp  # Import the handlers
 
     bot = Bot(token=TOKEN)
-    dp = Dispatcher()
+    dp = Dispatcher(bot)
 
     @dp.message(Command(commands=['start']))
-    async def start_handler(message: Message):
+    async def start_handler(message: types.Message):
         user_id = message.from_user.id
         current_time = time.time()
         throttle_rate = 2  # 2 seconds throttle rate
@@ -46,12 +48,13 @@ async def main():
 
         user_last_command_time[user_id] = current_time
         await message.reply("Welcome! Let's start the game.")
-        # Call the game start logic here, e.g., sending a message or initializing game state.
-        # Example: await some_function_to_start_the_game(message)
 
     await on_startup(dp)
-    await dp.start_polling(bot)
+
+    app = web.Application()
+    app.router.add_post(f'/{TOKEN}', handle_webhook)
+    port = int(os.getenv("PORT", 5000))
+    web.run_app(app, port=port)
 
 if __name__ == '__main__':
     asyncio.run(main())
-

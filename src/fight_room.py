@@ -71,6 +71,7 @@ class Fight:
             return text_move
 
     async def __get_text_blocked_user(self, is_losed=False):
+        from src.user import User
         """
         Функция для получения инфы об блоке юзера
         :return: False если действие не было заблокировано, str с описанием что блокировано было в противном случае.
@@ -119,6 +120,7 @@ class Fight:
         return False
 
     async def __get_text_default_attack_user(self):
+        from src.user import User
         text_move = f"{strings.fight_info[1]} <b>{strings.fight_actions_buttons[self.__user_attack].lower()}.</b> "
         await self.up_attack()
         user_info = User(*await DB.get_user_info(self.__user_id))
@@ -135,6 +137,7 @@ class Fight:
         return text_move + " " + strings.fight_info[3] + f"<b>{damage}</b> " + strings.fight_info[4] + "\n\n\n"
 
     async def __get_text_default_attack_npc(self):
+        from src.user import User
         text_move = f"{strings.fight_info[1]} <b>{strings.fight_actions_buttons[self.__user_attack].lower()}.</b> "
         enemy_info = await DB.get_enemy(self.__enemy_id)
         user_info = User(*await DB.get_user_info(self.__user_id))
@@ -157,6 +160,7 @@ class Fight:
             4] + (strings.opponent_use_dodge.format(user_haracteristics[3]) if dodged and user_haracteristics[3] else "") + "\n\n\n"
 
     async def __get_text_critical_user(self):
+        from src.user import User
         text_move = f"{strings.fight_info[1]} <b>{strings.fight_actions_buttons[self.__user_attack].lower()}.</b> "
 
         await self.up_attack()
@@ -175,6 +179,7 @@ class Fight:
             4] + "\n\n\n"
 
     async def __get_text_critical_npc(self):
+        from src.user import User
         actions = await DB.get_npc_actions_fight_room(self.__user_id)
 
         text_move = f"{strings.fight_info[1]} <b>{strings.fight_actions_buttons[actions[0]].lower()}.</b> "
@@ -204,6 +209,7 @@ class Fight:
                                                                                                      3] else "") + "\n\n\n"
 
     async def get_text_fight(self, is_losed=False):
+        from src.user import User
         # Создание переменных, которые отвечают за атаку и блок бота
         await DB.set_attack_action(self.__user_id, randint(5, 9), "block", "npc")
         await DB.set_attack_action(self.__user_id, randint(0, 4), "attack", "npc")
@@ -257,6 +263,7 @@ class Fight:
         return self.__used_tricks.split() if self.__used_tricks is not None else []
 
     async def get_use_combination_text(self):
+        from src.user import User
         last_trick = await self.get_user_last_trick
         if last_trick is not None:
             user_info = User(*await DB.get_user_info(self.__user_id))

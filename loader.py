@@ -8,6 +8,5 @@ print("Token:", config.TOKEN)  # Ensure the token is correctly loaded
 if not config.TOKEN:
     raise ValueError("Bot token is not provided or invalid")
 
-bot = Bot(token=config.TOKEN)
+bot = Bot(token=config.TOKEN, parse_mode=ParseMode.HTML)
 dp = Dispatcher(storage=MemoryStorage())
-bot.parse_mode = ParseMode.HTML  # Setting the parse mode after bot initialization

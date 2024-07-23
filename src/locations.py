@@ -16,7 +16,7 @@ class Location:
         self.need_lvl = need_lvl
         self.aviable_locations = aviable_locations
 
-    async def get_text_city(self: str, user_info: 'User': int) -> str:
+    async def get_text_city(self: user_info: 'User') -> str:
         from src.user import User
         event = await DB.get_event()
         cur_event_title = Event(*event).name if event is not None else strings.not_have_event
@@ -34,7 +34,7 @@ class Location:
 <a href='t.me/{strings.main_chat}'>{strings.chat_list[0]}</a> | <a href='t.me/{strings.shop_chat}'>{strings.chat_list[1]}</a> | <a href='t.me/{strings.news_chat}'>{strings.chat_list[2]}</a>"""
         return text
 
-    async def get_text_location(self: str, user_info: 'User': int) -> str:
+    async def get_text_location(self: user_info: 'User') -> str:
         from src.user import User
         event = await DB.get_event()
         cur_event_title = Event(*event).name if event is not None else strings.not_have_event

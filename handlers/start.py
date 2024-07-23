@@ -1,11 +1,11 @@
 import asyncio
-from aiogram import types, Router
+from aiogram import types, Router, Bot
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext  # Import FSMContext for aiogram 3.x
-from aiogram.types import File
+from aiogram.types import FSInputFile
 
 from database import DB
-from loader import bot, dp
+from loader import dp
 from src import dicts
 from state import StartState  # Ensure this import points to the correct module
 from utils import strings
@@ -35,14 +35,15 @@ async def start_game_logic(message: types.Message):
                 pass
 
         await DB.user_add(message.from_user.id, message.from_user.username)
+        file = FSInputFile('utils/images/start.jpg')
         await bot.send_photo(message.from_user.id, caption=start_NoneRegisterMessage,
-                             photo=File('utils/images/start.jpg'),
-                             reply_markup=await inline.start_game())
+                             photo=file, reply_markup=await inline.start_game())
     else:
         user_info = await get_user_info(message.from_user.id)
         if user_info.course is None:
+            file = FSInputFile('utils/images/start.jpg')
             await bot.send_photo(message.from_user.id, caption=start_NoneRegisterMessage,
-                                 photo=File("utils/images/start.jpg"), reply_markup=await inline.start_game())
+                                 photo=file, reply_markup=await inline.start_game())
         else:
             await ret_city(message.from_user.id)
 

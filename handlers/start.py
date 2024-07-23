@@ -1,9 +1,7 @@
 import asyncio
-
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import CommandStart
-
 from database import DB
 from loader import dp, bot
 from src import dicts
@@ -16,10 +14,8 @@ from utils.functions import ret_city, get_name_availability
 from keyboards import default, inline
 from filters.filter import IsPrivate
 
-
-# Команда старт
-@dp.message_handler(IsPrivate(), CommandStart())
-async def start(message: types.Message):
+# Add a function to encapsulate the start game logic
+async def start_game_logic(message: types.Message):
     if not await DB.user_check(message.from_user.id):
         args = message.get_args()
         if args:
@@ -34,22 +30,21 @@ async def start(message: types.Message):
             except ValueError:
                 pass
 
-
         await DB.user_add(message.from_user.id, message.from_user.username)
         await bot.send_photo(message.from_user.id, caption=start_NoneRegisterMessage,
                              photo=types.InputFile('utils/images/start.jpg'),
                              reply_markup=await inline.start_game())
-
     else:
         user_info = await get_user_info(message.from_user.id)
-
         if user_info.course is None:
             await bot.send_photo(message.from_user.id, caption=start_NoneRegisterMessage,
                                  photo=types.InputFile("utils/images/start.jpg"), reply_markup=await inline.start_game())
-
         else:
             await ret_city(message.from_user.id)
 
+@dp.message_handler(IsPrivate(), CommandStart())
+async def start(message: types.Message):
+    await start_game_logic(message)
 
 @dp.callback_query_handler(text="start_game")
 async def start(call: types.CallbackQuery):
@@ -57,27 +52,22 @@ async def start(call: types.CallbackQuery):
                            reply_markup=await default.buttons_start_choose_course())
     await StartState.course.set()
 
-
 @dp.callback_query_handler(text="start_game_complite")
 async def start_complite(call: types.CallbackQuery):
     await ret_city(call.from_user.id)
 
-
 @dp.message_handler(state=states.StartState.name)
 async def start_game_state(message: types.Message, state: FSMContext):
     aviable_name = await get_name_availability(message.text)
-
     if aviable_name == "not busy":
         await state.finish()
         await DB.set_nickname(message.text, message.from_user.id)
         await bot.send_message(message.from_user.id, strings.startRegistrationComplite,
                                reply_markup=await inline.start_compliteReg())
-
     elif aviable_name == "not_aviable":
         await bot.send_message(message.from_user.id, strings.startYourNameIsInvalid)
     else:
         await bot.send_message(message.from_user.id, strings.startYourNameIsBusy)
-
 
 # Обработка сообщений с кнопок
 @dp.message_handler(state=states.StartState.course)
@@ -90,7 +80,6 @@ async def choose_course(message: types.Message, state: FSMContext):
                                reply_markup=await default.button_start_send_nickname(message) if message.from_user.username is not None else await default.get_fight_res_button(
                                    strings.choice_name))
         await states.StartState.name.set()
-
     except KeyError:
         await bot.send_message(message.from_user.id, strings.start_choose_course_preview,
                                reply_markup=await default.buttons_start_choose_course())

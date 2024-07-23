@@ -21,7 +21,7 @@ router = Router()
 # Add a function to encapsulate the start game logic
 async def start_game_logic(message: types.Message):
     if not await DB.user_check(message.from_user.id):
-        args = message.get_args()
+        args = message.text.split(maxsplit=1)[1:]
         if args:
             try:
                 main_referal_id = int(args)

@@ -1,5 +1,4 @@
 from src.dicts import item_haracteristics
-from src.user import User
 from utils import strings, functions
 
 
@@ -64,6 +63,7 @@ class InventoryItem:
 
     @staticmethod
     async def get_aviable_value(value, user_info: User, lvl):
+       from src.user import User
         if value == "need_lvl":
             return " 🔻" if user_info.lvl < lvl else ""
         elif value == "need_power":

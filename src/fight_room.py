@@ -27,6 +27,7 @@ class Fight:
         self.last_move_time = last_move_time
 
     async def __get_text_move_user(self, is_losed=False):
+        from src.user import User
         is_critical = False
         current_trick = await self.get_user_last_trick
         if current_trick is not None:

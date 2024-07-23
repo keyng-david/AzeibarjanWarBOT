@@ -3,7 +3,7 @@ import datetime
 import random
 
 from aiogram import types
-from aiogram.dispatcher import FSMContext
+from aiogram.fsm.context import FSMContext  # Import FSMContext for aiogram 3.x
 
 import config
 from config import ENEMY_NPC_FIND_TIME

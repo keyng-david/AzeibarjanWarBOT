@@ -3,11 +3,11 @@ from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
 import config
 from utils import strings
+from src.user import User
 from utils.class_getter import get_trick, get_fight_room, get_fight_room_u
 
 
 async def buttons_start_choose_course():
-    from src.user import User
     b1 = KeyboardButton(strings.start_choose_course[0])
     b2 = KeyboardButton(strings.start_choose_course[1])
     b3 = KeyboardButton(strings.start_choose_course[2])

@@ -1,4 +1,5 @@
 import asyncio
+import logging
 from aiogram import types, Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
@@ -15,8 +16,17 @@ from utils.functions import ret_city, get_name_availability
 from keyboards import default, inline
 from filters.filter import IsPrivate
 
-# Initialize Router
-router = Router()
+# Initialize logging
+logging.basicConfig(level=logging.INFO)
+
+# Initialize Dispatcher and Router
+router = Dispatcher()
+
+# Define callback data
+callback_factory = CallbackData("action", "data")
+
+class StartState(StatesGroup):
+    course = State()
 
 # Add a function to encapsulate the start game logic
 async def start_game_logic(message: types.Message):
@@ -40,7 +50,7 @@ async def start_game_logic(message: types.Message):
             message.from_user.id,
             caption=start_NoneRegisterMessage,
             photo=file,
-            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Start Game", callback_data="start_game")]])
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Start Game", callback_data=callback_factory.new(action="start_game", data=""))]])
         )
     else:
         user_info = await get_user_info(message.from_user.id)

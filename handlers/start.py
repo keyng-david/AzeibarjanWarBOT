@@ -130,19 +130,3 @@ async def choose_course(message: types.Message, state: FSMContext):
 dp.include_router(router)
 
 
-handlers/menu/menu_chield.py
-from aiogram import types
-
-from database import DB
-from filters.filter import IsPrivate
-from keyboards import default, inline
-from loader import dp, bot
-from state import states
-from state.states import DeleteHero
-from utils import strings
-from utils.class_getter import get_user_info, get_resource
-
-
-@dp.message_handler(IsPrivate(), text=[strings.menuMainButtonsList[5], strings.settings_buttons_text[3]])
-async def menu_ch_main(message: types.Message):
-    """📟 Меню"""

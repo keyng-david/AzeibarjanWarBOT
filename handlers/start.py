@@ -60,7 +60,7 @@ async def start_game_logic(message: types.Message):
                 message.from_user.id,
                 caption=start_NoneRegisterMessage,
                 photo=file,
-                reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Start Game", callback_data="start_game")]])
+                reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Start Game", callback_data=callback_factory.new(action="start_game", data=""))]])
             )
         else:
             await ret_city(message.from_user.id)

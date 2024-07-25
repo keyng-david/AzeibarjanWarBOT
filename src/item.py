@@ -1,12 +1,9 @@
 from src.dicts import item_haracteristics
-from src.user import User
 from utils import strings, functions
-
 
 class InventoryItem:
     def __init__(self, id, item_title, item_type, weapon, rarity, type, quality, damage, health, protect, critical,
-                 dodge,
-                 need_lvl, need_power, need_force, need_intuition, need_dexterity, cost, description):
+                 dodge, need_lvl, need_power, need_force, need_intuition, need_dexterity, cost, description):
         self.id = id
         self.title = item_title
         self.item_type = item_type
@@ -26,7 +23,6 @@ class InventoryItem:
         self.need_dexterity = need_dexterity
         self.cost = cost
         self.description = description
-
 
     async def get_item_desc(self, need_statistic_bool, user, lvl_up="0", without_cost=False):
         item_bonuses = {"damage": self.damage, "health": self.health, "protect": self.protect,
@@ -61,9 +57,9 @@ class InventoryItem:
 
         return item_title + item_type + weapon + quality + rarity + item_bonusess + item_bstr + "\n" + (cost if not without_cost else "")
 
-
     @staticmethod
-    async def get_aviable_value(value, user_info: User, lvl):
+    async def get_aviable_value(value: str, user_info: 'User', lvl: int) -> str:
+        from src.user import User
         if value == "need_lvl":
             return " 🔻" if user_info.lvl < lvl else ""
         elif value == "need_power":
@@ -74,12 +70,9 @@ class InventoryItem:
             return " 🔻" if user_info.intuition < lvl else ""
         elif value == "need_dexterity":
             return " 🔻" if user_info.dexterity < lvl else ""
+        return ""
 
     @property
     def get_item_bonuses(self):
         return [["damage", self.damage], ["max_hp", self.health], ["protection", self.protect],
                 ["critical", self.critical], ["dodge", self.dodge]]
-
-
-
-

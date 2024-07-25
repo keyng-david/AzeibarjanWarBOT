@@ -10,7 +10,6 @@ from src.quests import Quests
 from src.resource import Resource
 from src.trade_room import TradeRoom
 from src.trick import Trick
-from src.user import User
 
 
 async def get_fight_room(user_id) -> Fight:
@@ -25,7 +24,8 @@ async def get_trick(trick_id) -> Trick:
     res = await DB.get_trick(trick_id)
     return Trick(*res)
 
-async def get_user_info(user_id) -> User:
+async def get_user_info(user_id):
+    from src.user import User  # Import here to avoid circular import
     res = await DB.get_user_info(user_id)
     return User(*res)
 
@@ -54,7 +54,3 @@ async def get_event() -> Event:
 
 async def get_fight_room_u(user_id) -> FightRoomUsers:
     return FightRoomUsers(*await DB.get_fight_room_users(user_id))
-
-
-
-

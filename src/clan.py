@@ -1,8 +1,6 @@
 import config
 from database import DB
-from src.user import User
 from utils import strings
-
 
 class Clan:
     def __init__(self, id, name, current_emoji, aviable_emojies):
@@ -28,6 +26,7 @@ class Clan:
 
     @property
     async def get_pre_heads(self):
+        from src.user import User
         resultat = []
         for pre_head in await DB.get_pre_heads(self.id):
             user_info = User(*await DB.get_user_info(pre_head[0]))
@@ -41,6 +40,7 @@ class Clan:
 
     @property
     async def get_clan_leader_text(self):
+        from src.user import User
         clan_leader = User(*await DB.get_user_info(await DB.get_clan_leader(self.id)))
         return f"{strings.clan_list_actions[2].format(await clan_leader.get_href_without_hp())}\n"
 
@@ -56,8 +56,6 @@ class Clan:
     async def get_clan_title(self):
         return f"{await self.get_clan_emoji} {self.name}"
 
-
     @property
     async def get_aviable_emojies(self):
         return list(map(int, self.aviable_emojies.split()))
-

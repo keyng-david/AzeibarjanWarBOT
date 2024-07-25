@@ -71,7 +71,7 @@ class User:
                 self.dodge + (self.dexterity * 7)]
 
     async def get_href_userURL(self):
-        from AzeibarjanWarBOT.database import DB
+        from database import DB
 
         haracteristics = await self.get_aviable_haracteristics()
         try:
@@ -82,7 +82,7 @@ class User:
         return f"{clan_emoji}{strings.courses[self.course][0]} <a href='tg://user?id={self.id}'>{self.nickname}</a> ⭐{await functions.get_lvl_good(self.lvl)} ❤({self.current_hp}/{haracteristics[0]})"
 
     async def get_href_without_hp(self):
-        from AzeibarjanWarBOT.database import DB
+        from database import DB
         try:
             user_clan = await DB.get_user_clan(self.id)
             clan_emoji = await DB.get_clan_emoji(user_clan[2])
@@ -112,8 +112,8 @@ class User:
 
     @property
     async def get_collection(self):
-        from AzeibarjanWarBOT.database import DB
-        from AzeibarjanWarBOT.utils.class_getter import get_resource
+        from database import DB
+        from utils.class_getter import get_resource
         user_collection = await DB.get_collection(self.nickname)
         res = ""
         for nft in user_collection:

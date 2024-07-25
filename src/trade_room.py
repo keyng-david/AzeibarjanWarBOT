@@ -1,6 +1,5 @@
 from src.item import InventoryItem
 from src.resource import Resource
-from src.user import User
 from database import DB
 from utils import strings
 
@@ -83,6 +82,7 @@ class TradeRoom:
         await self.__add_items_to_inv(self.user_2 if not suc_trade else self.user_1, suc_trade)
 
     async def __add_items_to_inv(self, user_id, suc_trade: bool):
+        from src.user import User
         user_info = User(*await DB.get_user_info(user_id))
         if not suc_trade:
             groups = [self.equip_1, self.resources_1] if user_id == self.user_1 else [self.equip_2, self.resources_2]

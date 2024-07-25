@@ -5,7 +5,6 @@ import config
 from database import DB
 from src import dicts
 from src.trick import Trick
-from src.user import User
 from utils import strings
 
 
@@ -67,6 +66,7 @@ class FightRoomUsers:
             await DB.update_glory(config.PVP_POINTS_REWARD_ONLINE, "+", user_id_winner, column_type="pvp_points")
 
     async def round_resultat(self, user_1_losed=False, user_2_losed=False, text=""):
+        from src.user import User
         position_user_id_1 = await self.get_another_player(self.user_id_1, True)
         position_user_id_2 = await self.get_another_player(self.user_id_2, True)
         stats = \
@@ -145,6 +145,7 @@ class FightRoomUsers:
         return None if self.user_2_last_trick is None else Trick(*await DB.get_trick(self.user_2_last_trick))
 
     async def resultat_with_trick(self, damage: int, user: dict, is_cricital=False, is_blocked=False, is_dodged=False):
+        from src.user import User
         user_position = await self.get_player_position(user["id"])
 
         await DB.clear_last_trick(user["id"], user_position)

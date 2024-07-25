@@ -10,7 +10,6 @@ from loader import bot
 from src import dicts
 from src.dicts import resources_chield_types
 from src.resource import Resource
-from src.user import User
 from utils import strings
 from utils.class_getter import get_location, get_trick, get_user_info, get_item, get_resource, get_quest
 
@@ -117,7 +116,8 @@ async def get_name_availability(name):
     return "busy" if is_name_busy else "not busy"
 
 
-async def increase_player_level(user_info: User, experience_points):
+async def increase_player_level(user_info: 'User', experience_points) -> str:
+    from src.user import User
     current_level = user_info.lvl
     current_expiriance = user_info.current_xp
     user_id = user_info.id

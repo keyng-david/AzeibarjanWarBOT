@@ -2,7 +2,6 @@ import asyncio
 
 from database import DB
 from loader import bot
-from src.user import User
 from utils import strings
 
 
@@ -22,7 +21,8 @@ class Potion:
             "bonus_gold": up_gold_proc
         }
 
-    async def use_potion(self, user_info: User, potion_name):
+    async def use_potion(self, user_info: 'User', potion_name) -> str:
+        from src.user import User
 
         async def use_effects(operand):
             for eff in self.effects:
@@ -50,6 +50,7 @@ class Potion:
         await bot.send_message(user_info.id, strings.effect_been_used)
 
     async def get_proc_heal(self, user_id) -> int:
+        from src.user import User
         user_info = User(*await DB.get_user_info(user_id))
         haracteristics = await user_info.get_aviable_haracteristics()
         max_hp = haracteristics[0]

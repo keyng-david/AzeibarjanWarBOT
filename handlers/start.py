@@ -16,17 +16,11 @@ from utils.functions import ret_city, get_name_availability
 from keyboards import default, inline
 from filters.filter import IsPrivate
 
-# Initialize logging
-logging.basicConfig(level=logging.INFO)
+# Initialize Router
+router = Router()
 
-# Initialize Dispatcher and Router
-router = Dispatcher()
-
-# Define callback data
-callback_factory = CallbackData("action", "data")
-
-class StartState(StatesGroup):
-    course = State()
+# Set up logging
+logging.basicConfig(level=logging.DEBUG)
 
 # Add a function to encapsulate the start game logic
 async def start_game_logic(message: types.Message):
@@ -50,7 +44,7 @@ async def start_game_logic(message: types.Message):
             message.from_user.id,
             caption=start_NoneRegisterMessage,
             photo=file,
-            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Start Game", callback_data=callback_factory.new(action="start_game", data=""))]])
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Start Game", callback_data="start_game")]])
         )
     else:
         user_info = await get_user_info(message.from_user.id)
@@ -60,7 +54,7 @@ async def start_game_logic(message: types.Message):
                 message.from_user.id,
                 caption=start_NoneRegisterMessage,
                 photo=file,
-                reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Start Game", callback_data=callback_factory.new(action="start_game", data=""))]])
+                reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Start Game", callback_data="start_game")]])
             )
         else:
             await ret_city(message.from_user.id)
@@ -73,6 +67,7 @@ async def start(message: types.Message):
 # Callback query handler
 @router.callback_query(lambda call: call.data == "start_game")
 async def start(call: types.CallbackQuery):
+    logging.debug(f"Received callback query: {call.data}")
     await bot.send_message(
         call.from_user.id,
         strings.start_choose_course_preview,
@@ -128,5 +123,3 @@ async def choose_course(message: types.Message, state: FSMContext):
 
 # Register the router
 dp.include_router(router)
-
-

@@ -1,9 +1,10 @@
 import asyncio
 import logging
-from aiogram import types, Router
+from aiogram import types, Router, Bot, Dispatcher
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.filters import Text
 
 from database import DB
 from loader import bot, dp
@@ -71,8 +72,8 @@ async def start(message: types.Message):
     await start_game_logic(message)
 
 # Callback query handler for "Start Game"
-@router.callback_query(lambda call: call.data == "start_game")
-async def start(call: types.CallbackQuery):
+@router.callback_query(Text(equals="start_game"))
+async def start_game(call: types.CallbackQuery, state: FSMContext):
     logging.debug(f"Received callback query with data: {call.data} from user {call.from_user.id}")
     await call.answer()  # Answer the callback query to acknowledge it
     await bot.send_message(
@@ -80,14 +81,7 @@ async def start(call: types.CallbackQuery):
         strings.start_choose_course_preview,
         reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Choose Course", callback_data="choose_course")]])
     )
-    await StartState.course.set()
-
-# Callback query handler for completing the start
-@router.callback_query(lambda call: call.data == "start_game_complite")
-async def start_complite(call: types.CallbackQuery):
-    logging.debug(f"Received callback query with data: {call.data} from user {call.from_user.id}")
-    await call.answer()  # Answer the callback query to acknowledge it
-    await ret_city(call.from_user.id)
+    await state.set_state(StartState.course)
 
 # Message handler with state for choosing course
 @router.message(StartState.course)
@@ -96,13 +90,12 @@ async def choose_course(message: types.Message, state: FSMContext):
     try:
         await DB.set_course(dicts.course_variants[message.text], message.from_user.id)
         await bot.send_message(message.from_user.id, strings.startHi)
-        await state.clear()
+        await state.set_state(StartState.name)
         await bot.send_message(
             message.from_user.id,
             strings.startWriteName,
             reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Send Nickname", callback_data="send_nickname")]])
         )
-        await StartState.name.set()
     except KeyError:
         logging.debug(f"Invalid course: {message.text}")
         await bot.send_message(
@@ -122,13 +115,13 @@ async def start_game_state(message: types.Message, state: FSMContext):
     logging.debug(f"Received state message with name: {message.text} from user {message.from_user.id}")
     aviable_name = await get_name_availability(message.text)
     if aviable_name == "not busy":
-        await state.clear()
         await DB.set_nickname(message.text, message.from_user.id)
         await bot.send_message(
             message.from_user.id,
             strings.startRegistrationComplite,
             reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Complete Registration", callback_data="complete_registration")]])
         )
+        await state.clear()
     elif aviable_name == "not_aviable":
         await bot.send_message(message.from_user.id, strings.startYourNameIsInvalid)
     else:

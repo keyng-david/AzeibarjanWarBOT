@@ -2,6 +2,7 @@ import hashlib
 import random
 
 from aiogram import types, Router
+from aiogram.filters import Command
 from aiogram.types import InputTextMessageContent, InlineQueryResultArticle, InlineKeyboardMarkup, InlineKeyboardButton
 
 from database import DB
@@ -76,7 +77,7 @@ async def __get_input_text_content(title: str, description: str, input_message_c
     )
     return item
 
-@inline_router.message(IsPrivate(), commands=["getmob", "getequip", "getasset", "getcombo", "getuser", "get_clan"])
+@inline_router.message(IsPrivate(), Command(commands=["getmob", "getequip", "getasset", "getcombo", "getuser", "get_clan"]))
 async def get_mob_desc(message: types.Message):
     try:
         reply_markup = None

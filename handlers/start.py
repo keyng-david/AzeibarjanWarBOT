@@ -4,7 +4,7 @@ from aiogram import types, Router, Bot, Dispatcher
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile, InlineKeyboardMarkup, InlineKeyboardButton
-from aiogram.filters.text import Text
+from aiogram.filters.Text import Text
 
 from database import DB
 from loader import bot, dp

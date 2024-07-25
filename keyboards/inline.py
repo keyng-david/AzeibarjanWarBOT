@@ -11,21 +11,20 @@ from utils.class_getter import get_trick, get_user_info, get_item, get_resource,
 
 async def start_game():
     button = InlineKeyboardButton(text=strings.start_game_inlineButton, callback_data="start_game")
-    keyboard = InlineKeyboardMarkup(resize_keyboard=True, row_width=1)
-    keyboard.add(button)
-
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[[button]])
     return keyboard
 
 
 async def start_compliteReg():
     button = InlineKeyboardButton(text=strings.startCompliteRegInline, callback_data="start_game_complite")
-    keyboard = InlineKeyboardMarkup(resize_keyboard=True, row_width=1)
-    keyboard.add(button)
-
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[[button]])
     return keyboard
 
 
-async def dealer_buttons(callback):
+async dasync def start_compliteReg():
+    button = InlineKeyboardButton(text=strings.startCompliteRegInline, callback_data="start_game_complite")
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[[button]])
+    return keyboardef dealer_buttons(callback):
     keyboard = InlineKeyboardMarkup(resize_keyboard=True, row_width=2)
     k1 = InlineKeyboardButton(text=strings.dealer_button_list[0], callback_data=f"weapon_{callback}")
     k2 = InlineKeyboardButton(text=strings.dealer_button_list[1], callback_data=f"protect_{callback}")

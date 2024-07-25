@@ -70,10 +70,11 @@ async def start(message: types.Message):
     logging.debug(f"Received /start command from user {message.from_user.id}")
     await start_game_logic(message)
 
-# Callback query handler
+# Callback query handler for "Start Game"
 @router.callback_query(lambda call: call.data == "start_game")
 async def start(call: types.CallbackQuery):
     logging.debug(f"Received callback query with data: {call.data} from user {call.from_user.id}")
+    await call.answer()  # Answer the callback query to acknowledge it
     await bot.send_message(
         call.from_user.id,
         strings.start_choose_course_preview,
@@ -81,9 +82,11 @@ async def start(call: types.CallbackQuery):
     )
     await StartState.course.set()
 
+# Callback query handler for completing the start
 @router.callback_query(lambda call: call.data == "start_game_complite")
 async def start_complite(call: types.CallbackQuery):
     logging.debug(f"Received callback query with data: {call.data} from user {call.from_user.id}")
+    await call.answer()  # Answer the callback query to acknowledge it
     await ret_city(call.from_user.id)
 
 # Message handler with state

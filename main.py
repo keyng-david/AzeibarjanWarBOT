@@ -7,10 +7,10 @@ from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.filters import Command
 from aiogram.types import Update, Message
-from handlers.start import start_game_logic  # Import the function here
+from handlers.start import router as start_router, start_game_logic  # Import the router and function
 from utils.functions import clear_quests, schedule
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 # Dictionary to store the timestamp of the last command usage
 user_last_command_time = {}
@@ -39,6 +39,7 @@ async def on_startup(dispatcher: Dispatcher):
     asyncio.create_task(schedule())
     asyncio.create_task(clear_quests(2 * 60 * 60))
     middlewares.setup(dispatcher)
+    logging.debug("Startup tasks have been scheduled.")
 
 async def handle_webhook(request, bot, dp):
     try:
@@ -61,6 +62,9 @@ async def main():
     start_handler = StartHandler()
     dp.message.register(start_handler.__call__, Command(commands=['start']))
 
+    # Include the start router
+    dp.include_router(start_router)
+
     dp.startup.register(on_startup)
 
     app = web.Application()
@@ -76,7 +80,7 @@ async def main():
     site = web.TCPSite(runner, port=port)
     await site.start()
 
-    print(f'Server started at http://0.0.0.0:{port}')
+    logging.info(f'Server started at http://0.0.0.0:{port}')
     await asyncio.Event().wait()  # Keep the server running
 
 if __name__ == '__main__':

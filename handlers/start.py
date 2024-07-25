@@ -89,24 +89,6 @@ async def start_complite(call: types.CallbackQuery):
     await call.answer()  # Answer the callback query to acknowledge it
     await ret_city(call.from_user.id)
 
-# Message handler with state
-@router.message(StartState.name)
-async def start_game_state(message: types.Message, state: FSMContext):
-    logging.debug(f"Received state message with name: {message.text} from user {message.from_user.id}")
-    aviable_name = await get_name_availability(message.text)
-    if aviable_name == "not busy":
-        await state.clear()
-        await DB.set_nickname(message.text, message.from_user.id)
-        await bot.send_message(
-            message.from_user.id,
-            strings.startRegistrationComplite,
-            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Complete Registration", callback_data="complete_registration")]])
-        )
-    elif aviable_name == "not_aviable":
-        await bot.send_message(message.from_user.id, strings.startYourNameIsInvalid)
-    else:
-        await bot.send_message(message.from_user.id, strings.startYourNameIsBusy)
-
 # Message handler with state for choosing course
 @router.message(StartState.course)
 async def choose_course(message: types.Message, state: FSMContext):
@@ -133,6 +115,24 @@ async def choose_course(message: types.Message, state: FSMContext):
     user_info = await get_user_info(message.from_user.id)
     if user_info.nickname is None:
         await bot.send_message(message.from_user.id, strings.startWriteNameIfWaiting)
+
+# Message handler with state for setting nickname
+@router.message(StartState.name)
+async def start_game_state(message: types.Message, state: FSMContext):
+    logging.debug(f"Received state message with name: {message.text} from user {message.from_user.id}")
+    aviable_name = await get_name_availability(message.text)
+    if aviable_name == "not busy":
+        await state.clear()
+        await DB.set_nickname(message.text, message.from_user.id)
+        await bot.send_message(
+            message.from_user.id,
+            strings.startRegistrationComplite,
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Complete Registration", callback_data="complete_registration")]])
+        )
+    elif aviable_name == "not_aviable":
+        await bot.send_message(message.from_user.id, strings.startYourNameIsInvalid)
+    else:
+        await bot.send_message(message.from_user.id, strings.startYourNameIsBusy)
 
 # Register the router
 dp.include_router(router)

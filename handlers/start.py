@@ -1,10 +1,9 @@
 import asyncio
 import logging
-from aiogram import types, Router, Bot, Dispatcher
+from aiogram import types, Router, Bot, Dispatcher, F
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile, InlineKeyboardMarkup, InlineKeyboardButton
-from aiogram.filters import Text
 
 from database import DB
 from loader import bot, dp
@@ -72,7 +71,7 @@ async def start(message: types.Message):
     await start_game_logic(message)
 
 # Callback query handler for "Start Game"
-@router.callback_query(Text(equals="start_game"))
+@router.callback_query(F.data == "start_game")
 async def start_game(call: types.CallbackQuery, state: FSMContext):
     logging.debug(f"Received callback query with data: {call.data} from user {call.from_user.id}")
     await call.answer()  # Answer the callback query to acknowledge it

@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from aiogram import types, Router, Bot, Dispatcher, F
+from aiogram import types, Router, F
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile

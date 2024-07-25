@@ -9,6 +9,7 @@ from aiogram.filters import Command
 from aiogram.types import Update, Message
 from handlers.start import start_game_logic  # Import the function here
 from utils.functions import clear_quests, schedule
+from handlers.inline import process_start_game, process_start_game_complite  # Import the callback query handlers
 
 logging.basicConfig(level=logging.INFO)
 
@@ -62,6 +63,10 @@ async def main():
     dp.message.register(start_handler.__call__, Command(commands=['start']))
 
     dp.startup.register(on_startup)
+
+    # Register the callback query handlers
+    dp.callback_query.register(process_start_game, lambda c: c.data == 'start_game')
+    dp.callback_query.register(process_start_game_complite, lambda c: c.data == 'start_game_complite')
 
     app = web.Application()
 

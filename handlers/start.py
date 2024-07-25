@@ -72,9 +72,9 @@ async def start(message: types.Message):
 
 # Callback query handler for "Start Game"
 @router.callback_query(lambda call: call.data == "start_game")
-async def start(call: types.CallbackQuery, state: FSMContext):
+async def start(call: types.CallbackQuery):
     logging.debug(f"Received callback query with data: {call.data} from user {call.from_user.id}")
-    await call.answer()  # Acknowledge the callback query
+    await call.answer()  # Answer the callback query to acknowledge it
     await bot.send_message(
         call.from_user.id,
         strings.start_choose_course_preview,
@@ -86,7 +86,7 @@ async def start(call: types.CallbackQuery, state: FSMContext):
 @router.callback_query(lambda call: call.data == "start_game_complite")
 async def start_complite(call: types.CallbackQuery):
     logging.debug(f"Received callback query with data: {call.data} from user {call.from_user.id}")
-    await call.answer()  # Acknowledge the callback query
+    await call.answer()  # Answer the callback query to acknowledge it
     await ret_city(call.from_user.id)
 
 # Message handler with state

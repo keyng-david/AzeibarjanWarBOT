@@ -3,7 +3,7 @@ import logging
 from aiogram import types, Router, Bot, Dispatcher, F
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-from aiogram.types import FSInputFile, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import FSInputFile
 
 from database import DB
 from loader import bot, dp
@@ -47,7 +47,7 @@ async def start_game_logic(message: types.Message):
             message.from_user.id,
             caption=start_NoneRegisterMessage,
             photo=file,
-            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Start Game", callback_data="start_game")]])
+            reply_markup=await inline.start_game()  # Using the original function call here
         )
     else:
         logging.debug(f"User {message.from_user.id} already exists in DB.")
@@ -59,7 +59,7 @@ async def start_game_logic(message: types.Message):
                 message.from_user.id,
                 caption=start_NoneRegisterMessage,
                 photo=file,
-                reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Start Game", callback_data="start_game")]])
+                reply_markup=await inline.start_game()  # Using the original function call here
             )
         else:
             await ret_city(message.from_user.id)
@@ -78,7 +78,7 @@ async def start_game(call: types.CallbackQuery, state: FSMContext):
     await bot.send_message(
         call.from_user.id,
         strings.start_choose_course_preview,
-        reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Choose Course", callback_data="choose_course")]])
+        reply_markup=await default.buttons_start_choose_course()  # Using the original function call here
     )
     await state.set_state(StartState.course)
 
@@ -93,14 +93,14 @@ async def choose_course(message: types.Message, state: FSMContext):
         await bot.send_message(
             message.from_user.id,
             strings.startWriteName,
-            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Send Nickname", callback_data="send_nickname")]])
+            reply_markup=await default.button_start_send_nickname()  # Using the original function call here
         )
     except KeyError:
         logging.debug(f"Invalid course: {message.text}")
         await bot.send_message(
             message.from_user.id,
             strings.start_choose_course_preview,
-            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Choose Course", callback_data="choose_course")]])
+            reply_markup=await default.buttons_start_choose_course()  # Using the original function call here
         )
 
     await asyncio.sleep(300)

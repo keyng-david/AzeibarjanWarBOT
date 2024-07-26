@@ -5,6 +5,7 @@ from aiohttp import web
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 from utils.functions import clear_quests, schedule
+from aiogram.types import Update
 from handlers.start import router as start_router  # Import the start router
 from handlers.inline import inline_router  # Import the inline router
 

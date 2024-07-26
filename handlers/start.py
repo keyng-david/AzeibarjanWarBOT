@@ -1,12 +1,12 @@
 import asyncio
 import logging
-from aiogram import types, Router, F
+from aiogram import types, Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile, InlineKeyboardMarkup, InlineKeyboardButton
 
 from database import DB
-from loader import bot, dp
+from loader import bot
 from src import dicts
 from state import states
 from state.states import StartState
@@ -23,17 +23,16 @@ router = Router()
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
 
-# Add a function to encapsulate the start game logic
-async def start_game_logic(message: types.Message):
-    logging.debug(f"start_game_logic called with message: {message.text}")
+# Command handler for /start
+@router.message(IsPrivate(), Command("start"))
+async def start(message: types.Message):
+    logging.debug(f"Received /start command from user {message.from_user.id}")
     if not await DB.user_check(message.from_user.id):
-        logging.debug(f"User {message.from_user.id} does not exist in DB.")
         args = message.text.split(maxsplit=1)[1:]
         if args:
             try:
                 main_referal_id = int(args[0])
                 if await DB.check_referal(message.from_user.id, main_referal_id):
-                    logging.debug(f"User {message.from_user.id} has a valid referral: {main_referal_id}.")
                     await DB.add_refelal(main_referal_id, message.from_user.id)
                     user_info = await get_user_info(main_referal_id)
                     await DB.add_item_to_inventory(user_info.nickname, "potion", "regen_1")
@@ -51,10 +50,8 @@ async def start_game_logic(message: types.Message):
             reply_markup=await inline.start_game()  # Using the original function call here
         )
     else:
-        logging.debug(f"User {message.from_user.id} already exists in DB.")
         user_info = await get_user_info(message.from_user.id)
         if user_info.course is None:
-            logging.debug(f"User {message.from_user.id} has no course.")
             file = FSInputFile('utils/images/start.jpg')
             await bot.send_photo(
                 message.from_user.id,
@@ -64,12 +61,6 @@ async def start_game_logic(message: types.Message):
             )
         else:
             await ret_city(message.from_user.id)
-
-# Message handler
-@router.message(IsPrivate(), Command("start"))
-async def start(message: types.Message):
-    logging.debug(f"Received /start command from user {message.from_user.id}")
-    await start_game_logic(message)
 
 # Callback query handler for "Start Game"
 @router.callback_query(F.data == "start_game")

@@ -131,6 +131,3 @@ async def start_game_state(message: types.Message, state: FSMContext):
 @router.callback_query(F.data == "complete_registration")
 async def start_complite(call: types.CallbackQuery):
     await ret_city(call.from_user.id)
-
-# Register the router
-dp.include_router(router)

@@ -9,7 +9,7 @@ from aiogram.filters import Command
 from aiogram.types import Update, Message
 from handlers.start import start_game_logic  # Import the function here
 from utils.functions import clear_quests, schedule
-from handlers.inline import inline_router, process_start_game, process_start_game_complite  # Import the callback query handlers
+from handlers.inline import inline_router
 
 logging.basicConfig(level=logging.INFO)
 

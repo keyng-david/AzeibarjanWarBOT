@@ -65,8 +65,10 @@ async def main():
     dp.startup.register(on_startup)
 
     # Include the routers from start.py and inline.py
-    dp.include_router(start.router)
     dp.include_router(inline_router)
+
+    # Ensure that we are including the router from start.py correctly
+    dp.include_router(start.router)
 
     app = web.Application()
 

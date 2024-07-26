@@ -64,9 +64,6 @@ async def main():
 
     dp.startup.register(on_startup)
 
-    # Register the callback query handlers
-    dp.callback_query.register(process_start_game, lambda c: c.data == 'start_game')
-    dp.callback_query.register(process_start_game_complite, lambda c: c.data == 'start_game_complite')
 
     # Include the inline router
     dp.include_router(inline_router)

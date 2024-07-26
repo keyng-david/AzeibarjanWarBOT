@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from aiogram import types, Router
+from aiogram import types, Router, F
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile, InlineKeyboardMarkup, InlineKeyboardButton

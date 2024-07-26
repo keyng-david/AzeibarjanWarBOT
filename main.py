@@ -7,7 +7,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.filters import Command
 from aiogram.types import Update, Message
-from handlers.start import start_game_logic  # Import the function here
+from handlers import start  # Import the entire start module
 from utils.functions import clear_quests, schedule
 from handlers.inline import inline_router
 
@@ -30,7 +30,7 @@ class StartHandler:
                 return
 
         user_last_command_time[user_id] = current_time
-        await start_game_logic(message)
+        await start.start_game_logic(message)  # Call the start_game_logic from start module
 
 async def on_startup(dispatcher: Dispatcher):
     import middlewares  # Ensure this is the correct path
@@ -64,8 +64,8 @@ async def main():
 
     dp.startup.register(on_startup)
 
-
-    # Include the inline router
+    # Include the routers from start.py and inline.py
+    dp.include_router(start.router)
     dp.include_router(inline_router)
 
     app = web.Application()

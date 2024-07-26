@@ -9,7 +9,7 @@ from database import DB
 from loader import bot, dp
 from src import dicts
 from state import states
-from state.state import StartState
+from state.states import StartState
 from utils import strings
 from utils.class_getter import get_user_info
 from utils.strings import start_NoneRegisterMessage

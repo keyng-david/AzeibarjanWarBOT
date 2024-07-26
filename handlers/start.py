@@ -3,7 +3,7 @@ import logging
 from aiogram import types, Router, F
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-from aiogram.types import FSInputFile
+from aiogram.types import FSInputFile, InlineKeyboardMarkup, InlineKeyboardButton
 
 from database import DB
 from loader import bot, dp
@@ -126,6 +126,11 @@ async def start_game_state(message: types.Message, state: FSMContext):
         await bot.send_message(message.from_user.id, strings.startYourNameIsInvalid)
     else:
         await bot.send_message(message.from_user.id, strings.startYourNameIsBusy)
+
+# Registration completion handler
+@router.callback_query(F.data == "complete_registration")
+async def start_complite(call: types.CallbackQuery):
+    await ret_city(call.from_user.id)
 
 # Register the router
 dp.include_router(router)
